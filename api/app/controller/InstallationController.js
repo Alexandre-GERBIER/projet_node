@@ -39,7 +39,7 @@ class CarController {
     };
 
     exists(req, res) {
-        let noDeLIntallation = req.params.noDeLIntallation;
+        let noDeLIntallation = req.params.id;
 
         this.InstallationDao.exists(noDeLIntallation)
             .then(this.common.existsSuccess(res))
