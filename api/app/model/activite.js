@@ -3,7 +3,7 @@
  */
 
 class Activite {
-    constructor(Code_du_departement, Libelle_du_departement, Nom_de_la_commune, Numero_de_la_fiche_equipement, Nombre_dEquipements_identiques, Activite_code, Activite_libelle, Activite_praticable, Activite_pratiquee, Dans_salle_specialisable, Niveau_de_lActivite, localisation) {
+    constructor(Code_du_departement, Libelle_du_departement, Nom_de_la_commune, Numero_de_la_fiche_equipement, Nombre_dEquipements_identiques, Activite_libelle, Activite_praticable, Activite_pratiquee, Dans_salle_specialisable, Niveau_de_lActivite, localisation) {
         this.Code_du_departement = Code_du_departement ;
         this.Libelle_du_departement = Libelle_du_departement;
         this.Nom_de_la_commune = Nom_de_la_commune;
