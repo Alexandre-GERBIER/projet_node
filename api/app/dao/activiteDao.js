@@ -20,10 +20,10 @@ class ActiviteDao {
      * @return entity
      */
     findById(id){
-        let sqlRequest = "select Code_du_departement, Libelle_du_departement, Nom_de_la_commune, Numero_de_la_fiche_equipement, Nombre_dEquipements_identiques, Activite_libelle, Activite_praticable, Activite_pratiquee, Dans_salle_specialisable, Niveau_de_lActivite, localisation from activite where Numero_de_la_fiche_equipement = $id";
+        let sqlRequest = "select Code_du_departement, Libelle_du_departement, Nom_de_la_commune, Numero_de_la_fiche_equipement, Nombre_dEquipements_identiques, Activite_libelle, Activite_praticable, Activite_pratiquee, Dans_salle_specialisable, Niveau_de_lActivite, localisation, Activite_code from activite where Numero_de_la_fiche_equipement = $id";
         let sqlParams = {$id: id};
         return this.common.findOne(sqlRequest, sqlParams).then(row =>
-            new Activite(row.Code_du_departement, row.Libelle_du_departement, row.Nom_de_la_commune, row.Numero_de_la_fiche_equipement, row.Nombre_dEquipements_identiques, row.Activite_libelle, row.Activite_praticable, row.Activite_pratiquee, row.Dans_salle_specialisable, row.Niveau_de_lActivite, row.localisation));
+            new Activite(row.Code_du_departement, row.Libelle_du_departement, row.Nom_de_la_commune, row.Numero_de_la_fiche_equipement, row.Nombre_dEquipements_identiques, row.Activite_libelle, row.Activite_praticable, row.Activite_pratiquee, row.Dans_salle_specialisable, row.Niveau_de_lActivite, row.localisation, row.Activite_code));
     };
 
     /**
@@ -35,7 +35,7 @@ class ActiviteDao {
         return this.common.findAll(sqlRequest).then(rows => {
             let activite = [];
             for (const row of rows) {
-                activite.push(new Activite(row.Code_du_departement, row.Libelle_du_departement, row.Nom_de_la_commune, row.Numero_de_la_fiche_equipement, row.Nombre_dEquipements_identiques, row.Activite_libelle, row.Activite_praticable, row.Activite_pratiquee, row.Dans_salle_specialisable, row.Niveau_de_lActivite, row.localisation));
+                activite.push(new Activite(row.Code_du_departement, row.Libelle_du_departement, row.Nom_de_la_commune, row.Numero_de_la_fiche_equipement, row.Nombre_dEquipements_identiques, row.Activite_libelle, row.Activite_praticable, row.Activite_pratiquee, row.Dans_salle_specialisable, row.Niveau_de_lActivite, row.localisation, row.Activite_code));
             }
             return activite;
         });
