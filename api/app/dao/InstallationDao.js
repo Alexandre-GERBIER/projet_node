@@ -49,3 +49,4 @@ class InstallationDao {
 
 
 }
+module.exports = InstallationDao;
