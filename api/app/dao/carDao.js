@@ -13,11 +13,7 @@ class CarDao {
         this.common = new daoCommon();
     }
 
-    /**
-     * Tries to find an entity using its Id / Primary Key
-     * @params id
-     * @return entity
-     */
+
     findById(id) {
         let sqlRequest = "SELECT id, maker, model, year, driver FROM car WHERE id=$id";
         let sqlParams = {$id: id};

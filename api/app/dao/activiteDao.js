@@ -63,4 +63,4 @@ class ActiviteDao {
 
 }
 
-module.exports = ActiviteDao;
+module.exports = activiteDao;
