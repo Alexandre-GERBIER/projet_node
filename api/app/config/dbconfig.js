@@ -25,7 +25,7 @@ let init = function () {
         " car INT" +
         ")");
 
-    db.run("insert into driver values(1,'john','smith',1);");
+    //db.run("insert into driver values(1,'john','smith',1);");
 };
 
 module.exports = {
