@@ -1,6 +1,7 @@
 
 class Installation {
-    constructor(noDeLIntallation,nomUsuelDeLIstallation,codePostal,nomDeLaCommune,numDeLaVoie,nomDeLaVoie,nomDuLieuDit,installationPariculiere,nbrplaceparking,dateCreation) {
+    constructor(departement,noDeLIntallation,nomUsuelDeLIstallation,codePostal,nomDeLaCommune,numDeLaVoie,nomDeLaVoie,nomDuLieuDit,installationPariculiere,nbrplaceparking,dateCreation) {
+        this.departement = departement;
         this.noDeLIntallation = noDeLIntallation;
         this.nomUsuelDeLIstallation = nomUsuelDeLIstallation;
         this.codePostal = codePostal;
