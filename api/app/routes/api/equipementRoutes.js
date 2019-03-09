@@ -3,24 +3,24 @@ const express = require('express');
 const router = express.Router();
 
 /* Load controller */
-const InstallationController = require('../../controller/InstallationController');
-const installationController = new InstallationController();
+const EquipementController = require('../../controller/equipementController');
+const equipementController = new EquipementController();
 
 /**
  * Installation Entity routes
  */
 router.get('/:id', function (req, res) {
-    installationController.findById(req, res);
+    equipementController.findById(req, res);
 });
 
 router.get('/', function (req, res) {
-    installationController.findAll(res);
+    equipementController.findAll(res);
 });
 router.get('/count', function (req, res) {
-    installationController.countAll(res);
+    equipementController.countAll(res);
 });
 
 router.get('/exists/:id', function (req, res) {
-    installationController.exists(req, res);
+    equipementController.exists(req, res);
 });
 module.exports = router;
