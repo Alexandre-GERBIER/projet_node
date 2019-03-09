@@ -1,14 +1,14 @@
 /* Load Car Data Access Object */
-const CarDao = require('../dao/carDao');
+const InstalationDao = require('../dao/InstallationDao');
 
 /* Load Controller Common function */
 const ControllerCommon = require('./common/controllerCommon');
 
 /* Load Car entity */
-const Car = require('../model/car');
+const Installation = require('../model/Installation');
 
 /**
- * Car Controller
+ * Installation Controller
  */
 class CarController {
 
@@ -39,9 +39,9 @@ class CarController {
     };
 
     exists(req, res) {
-        let noDeLIntallation = req.params.id;
+        let id = req.params.id;
 
-        this.InstallationDao.exists(noDeLIntallation)
+        this.InstallationDao.exists(id)
             .then(this.common.existsSuccess(res))
             .catch(this.common.findError(res));
     };

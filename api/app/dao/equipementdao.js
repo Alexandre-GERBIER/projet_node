@@ -26,23 +26,23 @@ class equipementDao {
     };
 
     findAll() {
-        let sqlRequest = "SELECT * FROM installation";
+        let sqlRequest = "SELECT * FROM equipement";
         return this.common.findAll(sqlRequest).then(rows => {
-            let Equipement = [];
+            let Equipements = [];
             for (const row of rows) {
-                Equipement.push(new Equipement(row.noDeLInstallation, row.noDeLEquipement, row.nomEquipement, row.typeDeEquipement, row.nbrEquipement, row.nbrPlaceTribune, row.natureDeLEquipement, row.nbrVestiaire));
+                Equipements.push(new Equipement(row.noDeLInstallation, row.noDeLEquipement, row.nomEquipement, row.typeDeEquipement, row.nbrEquipement, row.nbrPlaceTribune, row.natureDeLEquipement, row.nbrVestiaire));
             }
-            return Equipement;
+            return Equipements;
         });
     };
 
     countAll() {
-        let sqlRequest = "SELECT COUNT(*) AS count FROM installation";
+        let sqlRequest = "SELECT COUNT(*) AS count FROM equipement";
         return this.common.findOne(sqlRequest);
     };
 
     exists(noDeLEquipement) {
-        let sqlRequest = "SELECT (count(*) > 0) as found FROM car WHERE noDeLEquipement=$id";
+        let sqlRequest = "SELECT (count(*) > 0) as found FROM equipement WHERE noDeLEquipement=$id";
         let sqlParams = {$id: noDeLEquipement};
         return this.common.run(sqlRequest, sqlParams);
     };

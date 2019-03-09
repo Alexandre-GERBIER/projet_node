@@ -1,16 +1,16 @@
 /* Load activite Data Access Object */
-const ActiviteDao = require('../dao/activiteDao');
+const equipemntDao = require('../dao/equipementDao');
 
 /* Load Controller Common function */
 const ControllerCommon = require('./common/controllerCommon');
 
 /* Load Activite entity */
-const Activite = require('../model/activite');
+const Equipemnt = require('../model/equipement');
 
 class activiteController{
 
     constructor() {
-        this.activiteDao = new ActiviteDao();
+        this.equipementDao = new EquipementDao();
         this.common = new ControllerCommon();
     };
 
@@ -22,7 +22,7 @@ class activiteController{
     findById(req, res) {
         let id = req.params.id;
 
-        this.activiteDao.findById(id)
+        this.equipementDao.findById(id)
             .then(this.common.findSuccess(res))
             .catch(this.common.findError(res));
     };
@@ -32,7 +32,7 @@ class activiteController{
      * @return all entities
      */
     findAll(res) {
-        this.activiteDao.findAll()
+        this.equipementDao.findAll()
             .then(this.common.findSuccess(res))
             .catch(this.common.findError(res));
     };
@@ -43,7 +43,7 @@ class activiteController{
      */
     countAll(res) {
 
-        this.activiteDao.countAll()
+        this.equipementDao.countAll()
             .then(this.common.findSuccess(res))
             .catch(this.common.serverError(res));
     };
@@ -56,10 +56,10 @@ class activiteController{
     exists(req, res) {
         let id = req.params.id;
 
-        this.activiteDao.exists(id)
+        this.equipementDao.exists(id)
             .then(this.common.existsSuccess(res))
             .catch(this.common.findError(res));
     };
 }
 
-module.exports = activiteController;
+module.exports = equipementController;

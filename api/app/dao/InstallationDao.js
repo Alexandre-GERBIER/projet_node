@@ -42,7 +42,7 @@ class InstallationDao {
     };
 
     exists(noDeLIntallation) {
-        let sqlRequest = "SELECT (count(*) > 0) as found FROM car WHERE noDeLIntallation=$id";
+        let sqlRequest = "SELECT (count(*) > 0) as found FROM installation WHERE noDeLIntallation=$id";
         let sqlParams = {$id: noDeLIntallation};
         return this.common.run(sqlRequest, sqlParams);
     };
