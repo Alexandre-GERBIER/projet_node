@@ -18,9 +18,9 @@ class InstallationDao {
      * @params id:noDeLIntallation
      * @return entity
      */
-    findById(noDeLIntallation) {
-        let sqlRequest = "SELECT noDeLIntallation,nomUsuelDeLIstallation,codePostal,nomDeLaCommune,numDeLaVoie,nomDeLaVoie,nomDuLieuDit,installationPariculiere,nbrplaceparking,dateCreation FROM installation WHERE noDeLIntallation=$id";
-        let sqlParams = {$id: noDeLIntallation};
+    findById(id) {
+        let sqlRequest = "SELECT noDeLIntallation,nomUsuelDeLIstallation,codePostal,nomDeLaCommune,numDeLaVoie,nomDeLaVoie,nomDuLieuDit,installationPariculiere,nbrplaceparking,dateCreation FROM installation WHERE id=$id";
+        let sqlParams = {$id: id};
         return this.common.findOne(sqlRequest, sqlParams).then(row =>
             new Installation(row.departement, row.noDeLIntallation, row.nomUsuelDeLIstallation, row.codePostal, row.nomDeLaCommune, row.numDeLaVoie, row.nomDeLaVoie, row.nomDuLieuDit, row.installationPariculiere, row.nbrplaceparking, row.dateCreation));
     };
@@ -41,9 +41,9 @@ class InstallationDao {
         return this.common.findOne(sqlRequest);
     };
 
-    exists(noDeLIntallation) {
-        let sqlRequest = "SELECT (count(*) > 0) as found FROM installation WHERE noDeLIntallation=$id";
-        let sqlParams = {$id: noDeLIntallation};
+    exists(id) {
+        let sqlRequest = "SELECT (count(*) > 0) as found FROM installation WHERE id=$id";
+        let sqlParams = {$id: id};
         return this.common.run(sqlRequest, sqlParams);
     };
 

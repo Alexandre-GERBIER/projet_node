@@ -18,9 +18,9 @@ class equipementDao {
      * @params id:noDeLEquipement
      * @return entity
      */
-    findById(noDeLEquipement) {
-        let sqlRequest = "SELECT noDeLInstallation,noDeLEquipement,nomEquipement,typeDeEquipement,nbrEquipement,nbrPlaceTribune,natureDeLEquipement,nbrVestiaire FROM equipement WHERE noDeLEquipement=$id";
-        let sqlParams = {$id: noDeLIntallation};
+    findById(id) {
+        let sqlRequest = "SELECT noDeLInstallation,noDeLEquipement,nomEquipement,typeDeEquipement,nbrEquipement,nbrPlaceTribune,natureDeLEquipement,nbrVestiaire FROM equipement WHERE id=$id";
+        let sqlParams = {$id: id};
         return this.common.findOne(sqlRequest, sqlParams).then(row =>
             new Equipement(row.noDeLInstallation, row.noDeLEquipement, row.nomEquipement, row.typeDeEquipement, row.nbrEquipement, row.nbrPlaceTribune, row.natureDeLEquipement, row.nbrVestiaire));
     };
@@ -41,9 +41,9 @@ class equipementDao {
         return this.common.findOne(sqlRequest);
     };
 
-    exists(noDeLEquipement) {
-        let sqlRequest = "SELECT (count(*) > 0) as found FROM equipement WHERE noDeLEquipement=$id";
-        let sqlParams = {$id: noDeLEquipement};
+    exists(id) {
+        let sqlRequest = "SELECT (count(*) > 0) as found FROM equipement WHERE id=$id";
+        let sqlParams = {$id: id};
         return this.common.run(sqlRequest, sqlParams);
     };
 
