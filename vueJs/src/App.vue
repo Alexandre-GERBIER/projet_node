@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1> ceci est aussi un test</h1>
     <img src="./assets/logo.png">
     <router-view/>
   </div>
