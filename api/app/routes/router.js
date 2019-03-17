@@ -10,5 +10,7 @@ router.use('/driver', require('./api/driverRoutes'));
 
 router.use('/installation', require('./api/InstallationRoutes'));
 router.use('/equipement', require('./api/equipementRoutes'));
+router.use('/test', require('./api/testRoutes'));
+
 //router.use('/car', require('./api/carRoutes'));
 module.exports = router;
