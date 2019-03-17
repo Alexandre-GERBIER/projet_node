@@ -1,5 +1,5 @@
 /* Load Car Data Access Object */
-const InstalationDao = require('../dao/InstallationDao');
+const InstallationDao = require('../dao/InstallationDao');
 
 /* Load Controller Common function */
 const ControllerCommon = require('./common/controllerCommon');
@@ -10,7 +10,7 @@ const Installation = require('../model/Installation');
 /**
  * Installation Controller
  */
-class CarController {
+class InstallationController {
 
     constructor() {
         this.InstallationDao = new InstallationDao();

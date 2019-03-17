@@ -17,22 +17,24 @@ let db = new sqlite3.Database('./nantesDB.db');
 const createActivite = function () {
     return new Promise(function (resolve, reject) {
         const sqlRequest = "CREATE TABLE IF NOT EXISTS activite (" +
-            "Code_du_departement TEXT NOT NULL," +
-            "Libelle_de_departement TEXT NOT NULL," +
-            "Nom_de_la_commune TEXT NOT NULL," +
+            "code_du_departement TEXT NOT NULL," +
+            "libelle_du_departement TEXT NOT NULL," +
+            "nom_de_la_commune TEXT NOT NULL," +
+            "nombre_dEquipements_identiques INT," +
             "numero_de_la_fiche_equipement TEXT NOT NULL," +
-            "Activite_code TEXT NOT NULL," +
-            "Activite_libelle TEXT NOT NULL," +
-            "Activite_praticable TEXT NOT NULL," +
-            "Activite_pratiquee TEXT NOT NULL," +
-            "Dans_salle_specialisable TEXT NOT NULL," +
-            "Niveau_de_lActivite TEXT NOT NULL," +
-            "localisation TEXT NOT NULL" +
+            "activite_code TEXT NOT NULL," +
+            "activite_libelle TEXT NOT NULL," +
+            "activite_praticable TEXT NOT NULL," +
+            "activite_pratiquee TEXT NOT NULL," +
+            "dans_salle_specialisable TEXT NOT NULL," +
+            "niveau_de_lActivite TEXT ," +
+            "localisation TEXT NOT NULL," +
             "PRIMARY KEY (Activite_code, numero_de_la_fiche_equipement));" ;
          //   "FOREIGN KEY (numero_de_la_fiche_equipement) REFERENCES equipement(numero_de_la_fiche_equipement))";
         db.run(sqlRequest, [], (err) => {
 
             if (err) {
+                console.log("create activity");
                 console.log(err);
                 reject(err);
             }
@@ -51,16 +53,18 @@ const createEquipement = function() {
             "noDeLInstallation TEXT NOT NULL," +
             "noDeLEquipement TEXT NOT NULL," +
             "nomEquipement TEXT NOT NULL," +
+            "typeDeEquipement TEXT NOT NULL," +
             "nbrEquipement INT NOT NULL," +
             "nbrPlaceTribune INT NOT NULL," +
             "natureDeLEquipement TEXT NOT NULL," +
             "nbrVestiaire INT NOT NULL," +
-            "PRIMARY KEY (numero_de_la_fiche_equipement));" +
+            "PRIMARY KEY (noDeLEquipement));"
             //"FOREIGN KEY (numero_de_l_installation) REFERENCES installation(numero_de_l_installation))";
 
         db.run(sqlRequest, [], (err) => {
 
             if (err) {
+                console.log("create equipement");
                 console.log(err);
                 reject(err);
             }
@@ -88,11 +92,12 @@ const createInstallation = function() {
             "installationParticuliere TEXT NOT NULL," +
             "nbrplaceparking TEXT NOT NULL," +
             "dateCreation TEXT NOT NULL," +
-            "PRIMARY KEY (numero_de_l_installation))";
+            "PRIMARY KEY (noDeLInstallation))";
 
         db.run(sqlRequest,[], (err) => {
 
             if (err) {
+                console.log("create installation");
                 console.log(err);
                 reject(err);
             }
@@ -126,8 +131,7 @@ const populateInstallation =  function() {
             let row;
 
             while (row = this.read()) {
-                //TODO changer les parametres en fonction de ceux choisi
-                const sqlRequest = "INSERT OR IGNORE into installation (numero_de_l_installation, nom_usuel_de_l_installation, code_postal, nom_de_la_commune) " +
+                const sqlRequest = "INSERT OR IGNORE into installation (departement, noDeLInstallation, nomUsuelDeLInstallation, codePostal, nomDeLaCommune, numDeLaVoie, nomDeLaVoie, nomDuLieuDit, installationParticuliere, nbrplaceparking, dateCreation) " +
                     "VALUES ($dept,$noDeLInstallation, $nomUsuelDeLInstallation, $codePostal, $nomDeLaCommune, $numVoie, $nomVoie, $nomLieuDit, $instPart, $nbrPark, $dateCreation)";
                 const sqlParams = {
                     $dept: String(row.code_du_departement),
@@ -139,16 +143,17 @@ const populateInstallation =  function() {
                     $nomVoie: row.nom_de_la_voie,
                     $nomLieuDit: String(row.nom_du_lieu_dit),
                     $instPart: String(row.installation_particuliere),
-                    $nbrPark: String(row.nomber_total_de_place_de_parking),
-                    $dateCreation: String(row.)
-                    // TODO quel date ? màj fiche ou création fiche
-
+                    $nbrPark: String(row.nombre_total_de_place_de_parking),
+                    $dateCreation: String(row.date_de_creation_de_la_fiche_installation)
                 };
 
 
                 db.run(sqlRequest, sqlParams, function (err) {
-                    if (err)
+                    if (err) {
+                        console.log("populate installation");
                         console.log(err);
+                    } else {
+                    }
                 });
 
             }
@@ -158,7 +163,7 @@ const populateInstallation =  function() {
         stream.pipe(parser);
 
         parser.on('finish', function ()  {
-            console.log("Installations importées");
+            console.log("installations importees");
             resolve(this);
 
         });
@@ -193,10 +198,14 @@ const populateEquipement =  function() {
                 const sqlRequest = "INSERT OR IGNORE into equipement (noDeLInstallation,noDeLEquipement,nomEquipement,typeDeEquipement,nbrEquipement,nbrPlaceTribune,natureDeLEquipement,nbrVestiaire) " +
                     "VALUES ($noDeLInstallation,$noDeLEquipement,$nomEquipement,$typeDeEquipement,$nbrEquipement,$nbrPlaceTribune,$natureDeLEquipement,$nbrVestiaire)";
                 const sqlParams = {
-                    $numeroDeLaFicheEquipement: row.numero_de_la_fiche_equipement,
-                    $numeroDeLInstallation: row.numero_de_l_installation
-
-
+                    $noDeLInstallation: row.numero_de_l_installation,
+                    $noDeLEquipement: row.numero_de_la_fiche_equipement,
+                    $nomEquipement: row.nom_usuel_de_l_installation ,
+                    $typeDeEquipement: row.type_d_equipement_code,
+                    $nbrEquipement: row.nombre_d_equipement_identique,
+                    $nbrPlaceTribune: row.nombre_de_place_en_tribune,
+                    $natureDeLEquipement: row.libelle_de_la_nature_de_l_equipement,
+                    $nbrVestiaire: row.nombre_de_vestiaire_sportif
                 };
 
                 db.run(sqlRequest, sqlParams, function (err) {
@@ -210,12 +219,13 @@ const populateEquipement =  function() {
         stream.pipe(parser);
 
         parser.on('finish', function ()  {
-            console.log("Equipements importés");
+            console.log("equipement importes");
             resolve(this);
 
         });
 
         parser.on("error", (err) =>{
+            console.log("parser error")
             console.log(err);
             reject(err);
         });
@@ -225,7 +235,7 @@ const populateEquipement =  function() {
 
 const populateActivite =  function() {
     return new Promise(function (resolve, reject) {
-        //TODO changer les pramaetres en fonction de ceux choisi
+        //TODO changer les parametres en fonction de ceux choisi
         const fileName = 'data/234400034_004-009_activites-des-fiches-equipements-rpdl_extra_small.csv';
         const stream = fs.createReadStream(fileName, {encoding: 'utf8'});
 
@@ -243,19 +253,28 @@ const populateActivite =  function() {
             let row;
 
             while (row = this.read()) {
-                const sqlRequest = "INSERT OR IGNORE into activite(activite_code, activite_libelle, numero_de_la_fiche_equipement) " +
-                    "VALUES ($activiteCode, $activiteLibelle, $numeroDeLaFicheEquipement)";
+                const sqlRequest = "INSERT OR IGNORE into activite(code_du_departement, activite_code, libelle_du_departement, nom_de_la_commune, numero_de_la_fiche_equipement, nombre_dEquipements_identiques, activite_libelle, activite_praticable, activite_pratiquee, dans_salle_specialisable, niveau_de_lActivite, localisation) " +
+                    "VALUES ($Code_du_departement, $Activite_code, $Libelle_du_departement, $Nom_de_la_commune, $Numero_de_la_fiche_equipement, $Nombre_dEquipements_identiques, $Activite_libelle, $Activite_praticable, $Activite_pratiquee, $Dans_salle_specialisable, $Niveau_de_lActivite, $localisation)";
                 const sqlParams = {
-                    $activiteCode: row.activite_code,
-                    $activiteLibelle: row.activite_libelle,
-                    $numeroDeLaFicheEquipement : row.numero_de_la_fiche_equipement
+                    $Code_du_departement: row.code_du_departement,
+                    $Activite_code: row.activite_code,
+                    $Libelle_du_departement: row.libelle_du_departement,
+                    $Nom_de_la_commune: row.nom_de_la_commune,
+                    $Numero_de_la_fiche_equipement: row.numero_de_la_fiche_equipement,
+                    $Nombre_dEquipements_identiques: row.nombre_d_equipements_identiques,
+                    $Activite_libelle: row.activite_libelle,
+                    $Activite_praticable: row.activite_praticable,
+                    $Activite_pratiquee: row.activite_pratiquee,
+                    $Dans_salle_specialisable: row.dans_salle_specialisable,
+                    //$Niveau_de_lActivite: row.niveau_de_l_activite_-_classif,
+                    $localisation:  row.localisation
+                    //TODO pk localisation ici et pas dans les autres ?
                 };
 
 
                 db.run(sqlRequest, sqlParams, function (err) {
                     if (err) {
                         console.log(err);
-                        console.log(sqlRequest, sqlParams.$activiteCode, sqlParams.$activiteLibelle, sqlParams.$numeroDeLaFicheEquipement);
                     }
                 });
             }
@@ -282,6 +301,7 @@ const populateActivite =  function() {
 let init = function () {
     db.serialize(() => {
         console.log("Création des tables et importation des données");
+        console.log("Création installation");
         createInstallation().
         then(
             ()=>createEquipement()

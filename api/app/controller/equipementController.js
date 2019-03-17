@@ -1,16 +1,16 @@
 /* Load activite Data Access Object */
-const equipemntDao = require('../dao/equipementDao');
+const equipementDao = require('../dao/equipementDao');
 
 /* Load Controller Common function */
 const ControllerCommon = require('./common/controllerCommon');
 
 /* Load Activite entity */
-const Equipemnt = require('../model/equipement');
+const Equipement = require('../model/equipement');
 
-class activiteController{
+class equipementController{
 
     constructor() {
-        this.equipementDao = new EquipementDao();
+        this.equipementDao = new equipementDao();
         this.common = new ControllerCommon();
     };
 
