@@ -29,8 +29,8 @@ const createActivite = function () {
             "dans_salle_specialisable TEXT NOT NULL," +
             "niveau_de_lActivite TEXT ," +
             "localisation TEXT NOT NULL," +
-            "PRIMARY KEY (Activite_code, numero_de_la_fiche_equipement));" ;
-         //   "FOREIGN KEY (numero_de_la_fiche_equipement) REFERENCES equipement(numero_de_la_fiche_equipement))";
+            "PRIMARY KEY (Activite_code, numero_de_la_fiche_equipement)," +
+            "FOREIGN KEY (numero_de_la_fiche_equipement) REFERENCES equipement(noDeLEquipement));";
         db.run(sqlRequest, [], (err) => {
 
             if (err) {
@@ -58,8 +58,8 @@ const createEquipement = function() {
             "nbrPlaceTribune INT NOT NULL," +
             "natureDeLEquipement TEXT NOT NULL," +
             "nbrVestiaire INT NOT NULL," +
-            "PRIMARY KEY (noDeLEquipement));"
-            //"FOREIGN KEY (numero_de_l_installation) REFERENCES installation(numero_de_l_installation))";
+            "PRIMARY KEY (noDeLEquipement),"+
+            "FOREIGN KEY (noDeLInstallation) REFERENCES installation(noDeLInstallation));";
 
         db.run(sqlRequest, [], (err) => {
 
