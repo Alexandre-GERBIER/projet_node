@@ -4,7 +4,7 @@ const fs = require('fs');
 const csv = require('csv');
 const parse = require('csv-parse');
 const path = require('path');
-//TODO foreign keys + check type : text vs int
+//TODO check type : text vs int
 // TODO v2 : localisation pour géoloc + distance
 
 /*
@@ -17,12 +17,12 @@ let db = new sqlite3.Database('./nantesDB.db');
 const createActivite = function () {
     return new Promise(function (resolve, reject) {
         const sqlRequest = "CREATE TABLE IF NOT EXISTS activite (" +
-            "code_du_departement TEXT NOT NULL," +
+            "code_du_departement INT NOT NULL," +
             "libelle_du_departement TEXT NOT NULL," +
             "nom_de_la_commune TEXT NOT NULL," +
             "nombre_dEquipements_identiques INT," +
-            "numero_de_la_fiche_equipement TEXT NOT NULL," +
-            "activite_code TEXT NOT NULL," +
+            "numero_de_la_fiche_equipement INT NOT NULL," +
+            "activite_code INT NOT NULL," +
             "activite_libelle TEXT NOT NULL," +
             "activite_praticable TEXT NOT NULL," +
             "activite_pratiquee TEXT NOT NULL," +
@@ -50,8 +50,8 @@ const createActivite = function () {
 const createEquipement = function() {
     return new Promise(function (resolve, reject) {
         const sqlRequest = "CREATE TABLE IF NOT EXISTS equipement (" +
-            "noDeLInstallation TEXT NOT NULL," +
-            "noDeLEquipement TEXT NOT NULL," +
+            "noDeLInstallation INT NOT NULL," +
+            "noDeLEquipement INT NOT NULL," +
             "nomEquipement TEXT NOT NULL," +
             "typeDeEquipement TEXT NOT NULL," +
             "nbrEquipement INT NOT NULL," +
@@ -81,16 +81,16 @@ const createEquipement = function() {
 const createInstallation = function() {
     return new Promise(function (resolve, reject) {
         const sqlRequest = "CREATE TABLE IF NOT EXISTS installation (" +
-            "departement TEXT NOT NULL," +
-            "noDeLInstallation TEXT NOT NULL, " +
+            "departement INT NOT NULL," +
+            "noDeLInstallation INT NOT NULL, " +
             "nomUsuelDeLInstallation TEXT NOT NULL, " +
-            "codePostal TEXT NOT NULL, " +
+            "codePostal INT NOT NULL, " +
             "nomDeLaCommune TEXT NOT NULL, " +
-            "numDeLaVoie TEXT NOT NULL," +
+            "numDeLaVoie INT NOT NULL," +
             "nomDeLaVoie TEXT NOT NULL," +
             "nomDuLieuDit TEXT NOT NULL," +
             "installationParticuliere TEXT NOT NULL," +
-            "nbrplaceparking TEXT NOT NULL," +
+            "nbrplaceparking INT NOT NULL," +
             "dateCreation TEXT NOT NULL," +
             "PRIMARY KEY (noDeLInstallation))";
 
@@ -130,7 +130,7 @@ const populateInstallation =  function() {
         parser.on('readable', function () {
             let row;
 
-            while (row = this.read()) {
+            while (row === this.read()) {
                 const sqlRequest = "INSERT OR IGNORE into installation (departement, noDeLInstallation, nomUsuelDeLInstallation, codePostal, nomDeLaCommune, numDeLaVoie, nomDeLaVoie, nomDuLieuDit, installationParticuliere, nbrplaceparking, dateCreation) " +
                     "VALUES ($dept,$noDeLInstallation, $nomUsuelDeLInstallation, $codePostal, $nomDeLaCommune, $numVoie, $nomVoie, $nomLieuDit, $instPart, $nbrPark, $dateCreation)";
                 const sqlParams = {
