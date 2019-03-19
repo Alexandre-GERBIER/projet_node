@@ -17,12 +17,12 @@ let db = new sqlite3.Database('./nantesDB.db');
 const createActivite = function () {
     return new Promise(function (resolve, reject) {
         const sqlRequest = "CREATE TABLE IF NOT EXISTS activite (" +
-            "code_du_departement INT NOT NULL," +
+            "code_du_departement TEXT NOT NULL," +
             "libelle_du_departement TEXT NOT NULL," +
             "nom_de_la_commune TEXT NOT NULL," +
             "nombre_dEquipements_identiques INT," +
-            "numero_de_la_fiche_equipement INT NOT NULL," +
-            "activite_code INT NOT NULL," +
+            "numero_de_la_fiche_equipement TEXT NOT NULL," +
+            "activite_code TEXT NOT NULL," +
             "activite_libelle TEXT NOT NULL," +
             "activite_praticable TEXT NOT NULL," +
             "activite_pratiquee TEXT NOT NULL," +
@@ -50,14 +50,14 @@ const createActivite = function () {
 const createEquipement = function() {
     return new Promise(function (resolve, reject) {
         const sqlRequest = "CREATE TABLE IF NOT EXISTS equipement (" +
-            "noDeLInstallation INT NOT NULL," +
-            "noDeLEquipement INT NOT NULL," +
+            "noDeLInstallation TEXT NOT NULL," +
+            "noDeLEquipement TEXT NOT NULL," +
             "nomEquipement TEXT NOT NULL," +
             "typeDeEquipement TEXT NOT NULL," +
-            "nbrEquipement INT NOT NULL," +
-            "nbrPlaceTribune INT NOT NULL," +
+            "nbrEquipement TEXT NOT NULL," +
+            "nbrPlaceTribune TEXT NOT NULL," +
             "natureDeLEquipement TEXT NOT NULL," +
-            "nbrVestiaire INT NOT NULL," +
+            "nbrVestiaire TEXT NOT NULL," +
             "PRIMARY KEY (noDeLEquipement),"+
             "FOREIGN KEY (noDeLInstallation) REFERENCES installation(noDeLInstallation));";
 
@@ -81,16 +81,16 @@ const createEquipement = function() {
 const createInstallation = function() {
     return new Promise(function (resolve, reject) {
         const sqlRequest = "CREATE TABLE IF NOT EXISTS installation (" +
-            "departement INT NOT NULL," +
-            "noDeLInstallation INT NOT NULL, " +
+            "departement TEXT NOT NULL," +
+            "noDeLInstallation TEXT NOT NULL, " +
             "nomUsuelDeLInstallation TEXT NOT NULL, " +
-            "codePostal INT NOT NULL, " +
+            "codePostal TEXT NOT NULL, " +
             "nomDeLaCommune TEXT NOT NULL, " +
-            "numDeLaVoie INT NOT NULL," +
+            "numDeLaVoie TEXT NOT NULL," +
             "nomDeLaVoie TEXT NOT NULL," +
             "nomDuLieuDit TEXT NOT NULL," +
             "installationParticuliere TEXT NOT NULL," +
-            "nbrplaceparking INT NOT NULL," +
+            "nbrplaceparking TEXT NOT NULL," +
             "dateCreation TEXT NOT NULL," +
             "PRIMARY KEY (noDeLInstallation))";
 

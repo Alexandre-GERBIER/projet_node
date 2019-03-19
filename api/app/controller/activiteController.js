@@ -60,6 +60,20 @@ class activiteController{
             .then(this.common.existsSuccess(res))
             .catch(this.common.findError(res));
     };
+
+    /**
+     * return all activities in departement
+     * @param req
+     * @param res
+     * @return
+     */
+    findByDept(req, res) {
+
+        let numDept = req.params.id;
+        this.activiteDao.findByDept(numDept)
+            .then(this.common.existsSuccess(res))
+            .catch(this.common.findError(res));
+    };
 }
 
 module.exports = activiteController;

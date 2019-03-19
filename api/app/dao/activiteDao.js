@@ -21,7 +21,7 @@ class activiteDao {
      * @return entity
      */
     findById(id){
-        let sqlRequest = "select Code_du_departement, Libelle_du_departement, Nom_de_la_commune, Numero_de_la_fiche_equipement, Nombre_dEquipements_identiques, Activite_libelle, Activite_praticable, Activite_pratiquee, Dans_salle_specialisable, Niveau_de_lActivite, localisation, Activite_code from activite where Numero_de_la_fiche_equipement = $id";
+        let sqlRequest = "select* from activite where activite_code= $id";
         let sqlParams = {$id: id};
         return this.common.findOne(sqlRequest, sqlParams).then(row =>
             new Activite(row.code_du_departement, row.libelle_du_departement, row.nom_de_la_commune, row.numero_de_la_fiche_equipement, row.nombre_dEquipements_identiques, row.activite_libelle, row.activite_praticable, row.activite_pratiquee, row.dans_salle_specialisable, row.niveau_de_lActivite, row.localisation, row.activite_code));
@@ -61,6 +61,25 @@ class activiteDao {
         let sqlParams = {$id: id};
         return this.common.run(sqlRequest, sqlParams);
     };
+
+    /**
+     * return all activities in departement
+     * @param numDept
+     */
+    findByDept(numDept) {
+        let sqlRequest = "SELECT * FROM activite WHERE code_du_departement=$numDept";
+        let sqlParams = {$numDept: numDept};
+        console.log(numDept);
+        return this.common.findAll(sqlRequest,sqlParams).then(rows => {
+            let activite = [];
+            for (const row of rows) {
+                activite.push(new Activite(row.code_du_departement, row.libelle_du_departement, row.nom_de_la_commune, row.numero_de_la_fiche_equipement, row.nombre_dEquipements_identiques, row.activite_libelle, row.activite_praticable, row.activite_pratiquee, row.dans_salle_specialisable, row.niveau_de_lActivite, row.localisation, row.activite_code));
+            }
+            console.log(activite.length);
+            //TODO ne marche pas
+            return activite;
+        });
+    }
 
 }
 
