@@ -25,4 +25,8 @@ router.get('/', function (req, res) {
     activiteController.findAll(res);
 });
 
+router.get('/departement/:id',function (req,res){
+    activiteController.findByDept(req,res);
+});
+
 module.exports = router;

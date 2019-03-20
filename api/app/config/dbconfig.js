@@ -4,7 +4,7 @@ const fs = require('fs');
 const csv = require('csv');
 const parse = require('csv-parse');
 const path = require('path');
-//TODO foreign keys + check type : text vs int
+//TODO check type : text vs int
 // TODO v2 : localisation pour géoloc + distance
 
 /*
@@ -54,10 +54,10 @@ const createEquipement = function() {
             "noDeLEquipement TEXT NOT NULL," +
             "nomEquipement TEXT NOT NULL," +
             "typeDeEquipement TEXT NOT NULL," +
-            "nbrEquipement INT NOT NULL," +
-            "nbrPlaceTribune INT NOT NULL," +
+            "nbrEquipement TEXT NOT NULL," +
+            "nbrPlaceTribune TEXT NOT NULL," +
             "natureDeLEquipement TEXT NOT NULL," +
-            "nbrVestiaire INT NOT NULL," +
+            "nbrVestiaire TEXT NOT NULL," +
             "PRIMARY KEY (noDeLEquipement),"+
             "FOREIGN KEY (noDeLInstallation) REFERENCES installation(noDeLInstallation));";
 
@@ -130,7 +130,7 @@ const populateInstallation =  function() {
         parser.on('readable', function () {
             let row;
 
-            while (row = this.read()) {
+            while (row === this.read()) {
                 const sqlRequest = "INSERT OR IGNORE into installation (departement, noDeLInstallation, nomUsuelDeLInstallation, codePostal, nomDeLaCommune, numDeLaVoie, nomDeLaVoie, nomDuLieuDit, installationParticuliere, nbrplaceparking, dateCreation) " +
                     "VALUES ($dept,$noDeLInstallation, $nomUsuelDeLInstallation, $codePostal, $nomDeLaCommune, $numVoie, $nomVoie, $nomLieuDit, $instPart, $nbrPark, $dateCreation)";
                 const sqlParams = {
