@@ -69,8 +69,8 @@ class activiteController{
      */
     findByDept(req, res) {
 
-        let numDept = req.params.id;
-        this.activiteDao.findByDept(numDept)
+        let id = req.params.id;
+        this.activiteDao.findByDept(id)
             .then(this.common.existsSuccess(res))
             .catch(this.common.findError(res));
     };

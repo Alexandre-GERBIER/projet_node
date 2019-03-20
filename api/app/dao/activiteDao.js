@@ -68,15 +68,12 @@ class activiteDao {
      */
     findByDept(numDept) {
         let sqlRequest = "SELECT * FROM activite WHERE code_du_departement=$numDept";
-        let sqlParams = {$numDept: numDept};
-        console.log(numDept);
-        return this.common.findAll(sqlRequest,sqlParams).then(rows => {
+        let sqlParams = {$numDept : numDept};
+        return this.common.run(sqlRequest,sqlParams).then(rows => {
             let activite = [];
             for (const row of rows) {
                 activite.push(new Activite(row.code_du_departement, row.libelle_du_departement, row.nom_de_la_commune, row.numero_de_la_fiche_equipement, row.nombre_dEquipements_identiques, row.activite_libelle, row.activite_praticable, row.activite_pratiquee, row.dans_salle_specialisable, row.niveau_de_lActivite, row.localisation, row.activite_code));
             }
-            console.log(activite.length);
-            //TODO ne marche pas
             return activite;
         });
     }
