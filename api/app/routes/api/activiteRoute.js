@@ -9,6 +9,7 @@ const activiteController = new ActiviteController();
 /**
  * Activite Entity routes
  */
+
 router.get('/count', function (req, res) {
     activiteController.countAll(res);
 });
@@ -27,6 +28,14 @@ router.get('/', function (req, res) {
 
 router.get('/departement/:id',function (req,res){
     activiteController.findByDept(req,res);
+});
+
+router.get('/activites/liste/',function (req,res){
+    activiteController.selectActivite(res);
+});
+
+router.get('/activites/:id',function (req,res){
+    activiteController.choseActivite(req,res);
 });
 
 module.exports = router;
