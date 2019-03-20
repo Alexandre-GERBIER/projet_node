@@ -6,7 +6,25 @@
     <input type="radio" id="b" v-model="recher" value="b">
     <label>Equipement</label>
     <input type="radio" id="c" v-model="recher" value="c">
-    <div id="activite" v-if="recher==='a'">
+    <div id="rechercher" v-if="recher">
+        <div id="activite" v-if="recher==='a'">
+          <div id="activitelibelle">
+          <label>Nom activité</label>
+          <input type="text" name="activitelibelle" v-model="nom" >
+          </div>
+        </div>
+        <div id="activite" v-if="recher==='b'">
+          <div id="installationlibelle">
+            <label>Nom installation</label>
+            <input type="text" name="installationlibelle" v-model="nom" >
+          </div>
+        </div>
+        <div id="equipement" v-if="recher==='c'">
+          <div id="equipementlibelle">
+            <label>Nom equipement</label>
+            <input type="text" name="equipementlibelle" v-model="nom" >
+          </div>
+        </div>
         <div id="departement" >
           <label>Departement</label>
           <input type="text" name="Departement" v-model="dep">
@@ -15,15 +33,12 @@
           <label>Commune</label>
           <input type="text" name="Commune" v-model="commune" >
         </div>
-        <div id="activitelibelle">
-          <label>Nom activité</label>
-          <input type="text" name="activitelibelle" v-model="nomActivite" >
-        </div>
+
         <div id=Libelle_du_departement>
           <label>Nom Departement</label>
           <input type="text" name="Libelle_du_departement" v-model="nomDep">
         </div>
-    </div>
+      </div>
     <button name="envoyer" @click="envoie()">envoyer</button>
     {{envoyer}}
     <router-view/>
@@ -35,10 +50,9 @@ export default {
   name: 'App',
   data () {
     return {
-      villes : ['nantes','st herblain'],
       dep:"",
       commune:"",
-      nomActivite:"",
+      nom:"",
       nomDep:"",
       envoyer:"",
       recher:"",
@@ -46,7 +60,7 @@ export default {
   },
   methods: {
     envoie (){
-      this.envoyer=this.dep+" "+this.commune+" "+this.nomActivite+" "+this.nomDep
+      this.envoyer=this.nom+" "+this.dep+" "+this.commune+" "+this.nomDep
     }
   }
 }
