@@ -88,6 +88,12 @@ class activiteController{
             .then(this.common.existsSuccess(res))
             .catch(this.common.findError(res));
     };
+
+    findAllHandicap(res){
+        this.activiteDao.findAllHandicap()
+            .then(this.common.existsSuccess(res))
+            .catch(this.common.findError(res));
+    };
 }
 
 module.exports = activiteController;

@@ -11,7 +11,7 @@ const activiteController = new ActiviteController();
  */
 
 router.get('/', function (req, res) {
-    activiteController.findAll(res);
+    activiteController.findAllHandicap(res);
 });
 
 router.get('/count', function (req, res) {
@@ -22,7 +22,7 @@ router.get('/:id', function (req, res) {
     activiteController.findById(req, res);
 });
 
-//router.use('/handicap/',require('./activiteHandicapRoute'));
+router.use('/handicap/',require('activiteHandicapRoute'));
 
 router.get('/liste/',function (req,res){
     activiteController.selectActivite(res);

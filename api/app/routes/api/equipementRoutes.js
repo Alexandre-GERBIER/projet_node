@@ -9,13 +9,14 @@ const equipementController = new EquipementController();
 /**
  * Installation Entity routes
  */
+router.get('/', function (req, res) {
+    equipementController.findAll(res);
+});
+
 router.get('/:id', function (req, res) {
     equipementController.findById(req, res);
 });
 
-router.get('/', function (req, res) {
-    equipementController.findAll(res);
-});
 router.get('/count', function (req, res) {
     equipementController.countAll(res);
 });
