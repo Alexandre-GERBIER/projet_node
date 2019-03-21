@@ -89,8 +89,17 @@ class activiteController{
             .catch(this.common.findError(res));
     };
 
-    findAllHandicap(res){
-        this.activiteDao.findAllHandicap()
+    choseActiviteVille(req, res) {
+        let act = req.params.act;
+        let ville = req.params.ville;
+        this.activiteDao.choseActiviteVille(act,ville)
+            .then(this.common.existsSuccess(res))
+            .catch(this.common.findError(res));
+    };
+
+    choseVilleActivite(req, res) {
+        let id = req.params.id;
+        this.activiteDao.choseVilleActivite(id)
             .then(this.common.existsSuccess(res))
             .catch(this.common.findError(res));
     };
