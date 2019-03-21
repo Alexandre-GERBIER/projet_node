@@ -104,13 +104,24 @@ class activiteDao {
     }
 
     choseActiviteVille(act,ville){
-        console.log("dao");
         let sqlRequest = "SELECT * FROM activite where activite_libelle like $act and nom_de_la_commune like $ville";
         let sqlParams = {$act : act, $ville : ville};
         return this.common.run(sqlRequest,sqlParams).then(rows => {
             let activite = [];
             for (const row of rows) {
                 activite.push(new Activite(row.code_du_departement, row.libelle_du_departement, row.nom_de_la_commune, row.numero_de_la_fiche_equipement, row.nombre_dEquipements_identiques, row.activite_libelle, row.activite_praticable, row.activite_pratiquee, row.dans_salle_specialisable, row.niveau_de_lActivite, row.localisation, row.activite_code));
+            }
+            return activite;
+        });
+    }
+
+    choseVilleActivite(id){
+        let sqlRequest = "SELECT nom_de_la_commune FROM activite where activite_libelle like $id";
+        let sqlParams = {$id : id};
+        return this.common.run(sqlRequest,sqlParams).then(rows => {
+            let activite = [];
+            for (const row of rows) {
+                activite.push(String(row.nom_de_la_commune));
             }
             return activite;
         });

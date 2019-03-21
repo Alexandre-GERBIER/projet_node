@@ -28,7 +28,6 @@ router.get('/liste',function (req,res){
 
 //renvoie les entitées activite (parametre act) dans la ville (parametre ville)
 router.get('/:act&:ville',function (req,res){
-    console.log("router");
     activiteController.choseActiviteVille(req,res);
 });
 
@@ -50,6 +49,11 @@ router.get('/activites/:id',function (req,res){
 //renvoie si l'activite ayant pour code le paramètre existe
 router.get('/exists/:id', function (req, res) {
     activiteController.exists(req, res);
+});
+
+//renvoie toutes les villes ou il y a l'activités ayant pour libelle le paramètre
+router.get('/activites/villes/:id',function (req,res){
+    activiteController.choseVilleActivite(req,res);
 });
 
 module.exports = router;

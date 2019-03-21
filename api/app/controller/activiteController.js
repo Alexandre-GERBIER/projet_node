@@ -90,10 +90,16 @@ class activiteController{
     };
 
     choseActiviteVille(req, res) {
-        console.log("controller");
         let act = req.params.act;
         let ville = req.params.ville;
         this.activiteDao.choseActiviteVille(act,ville)
+            .then(this.common.existsSuccess(res))
+            .catch(this.common.findError(res));
+    };
+
+    choseVilleActivite(req, res) {
+        let id = req.params.id;
+        this.activiteDao.choseVilleActivite(id)
             .then(this.common.existsSuccess(res))
             .catch(this.common.findError(res));
     };
