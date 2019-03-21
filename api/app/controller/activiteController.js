@@ -109,6 +109,13 @@ class activiteController{
             .then(this.common.existsSuccess(res))
             .catch(this.common.findError(res));
     };
+
+    selectActiviteVille(req, res) {
+        let id = req.params.id;
+        this.activiteDao.selectActiviteVille(id)
+            .then(this.common.existsSuccess(res))
+            .catch(this.common.findError(res));
+    };
 }
 
 module.exports = activiteController;

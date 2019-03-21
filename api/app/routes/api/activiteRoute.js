@@ -31,8 +31,13 @@ router.get('/departement/:id',function (req,res){
 });
 
 //renvoie toutes les villes
-router.get('/activites/villes',function (req,res){
+router.get('/villes',function (req,res){
     activiteController.choseVille(res);
+});
+
+//renvoie toutes les activites de la ville
+router.get('/villes/:id',function (req,res){
+    activiteController.selectActiviteVille(req,res);
 });
 
 
