@@ -1,9 +1,37 @@
 <template>
   <div id="app">
-    <sui-divider></sui-divider>
-    
-    <button name="envoyer" @click="envoie()">envoyer</button>
-    {{envoyer}}
+    <sui-button @click="activite()">Activite</sui-button>
+    <sui-button class="ui button" @click="ville()">Ville</sui-button>
+    <div class="ui three column grid" v-if="recher==='act'">
+      <div class="row">
+        <div class="column">
+          <label>Activité</label>
+          <sui-input type="text"/>
+        </div>
+        <div class="column">
+          <label>Ville</label>
+          <sui-input type="text"/>
+        </div>
+        <div class="column">
+          <sui-button @click="envoie()">envoyer</sui-button>
+        </div>
+      </div>  
+    </div>
+    <div class="ui three column grid" v-if="recher==='vil'">
+      <div class="row">
+        <div class="column">
+          <label>Ville</label>
+          <sui-input type="text"/>
+        </div>
+        <div class="column">
+          <label>Activité</label>
+          <sui-input type="text"/>
+        </div>
+        <div class="column">
+          <sui-button @click="envoie()">envoyer</sui-button>
+        </div>
+      </div>  
+    </div>    
     <router-view/>
   </div>
 </template>
@@ -17,19 +45,17 @@ export default {
   name: 'App',
   data () {
     return {
-      dep:"",
-      commune:"",
-      nom:"",
-      nomDep:"",
-      envoyer:"",
       recher:"",
-      handicape:false,
+      envoyer:"",
     }
   },
   methods: {
-    envoie (){
-
-    }
+    activite(){
+      this.recher="act"
+    },
+    ville(){
+      this.recher="vil"
+    },
   }
 }
 </script>
