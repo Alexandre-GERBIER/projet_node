@@ -28,11 +28,11 @@ class equipementDao {
     findAll() {
         let sqlRequest = "SELECT * FROM equipement";
         return this.common.findAll(sqlRequest).then(rows => {
-            let Equipements = [];
+            let equip = [];
             for (const row of rows) {
-                Equipements.push(new Equipement(row.noDeLInstallation, row.noDeLEquipement, row.nomEquipement, row.typeDeEquipement, row.nbrEquipement, row.nbrPlaceTribune, row.natureDeLEquipement, row.nbrVestiaire));
+                equip.push(new Equipement(row.noDeLInstallation, row.noDeLEquipement, row.nomEquipement, row.typeDeEquipement, row.nbrEquipement, row.nbrPlaceTribune, row.natureDeLEquipement, row.nbrVestiaire));
             }
-            return Equipements;
+            return equip;
         });
     };
 

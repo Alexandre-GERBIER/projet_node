@@ -130,7 +130,7 @@ const populateInstallation =  function() {
         parser.on('readable', function () {
             let row;
 
-            while (row === this.read()) {
+            while (row = this.read()) {
                 const sqlRequest = "INSERT OR IGNORE into installation (departement, noDeLInstallation, nomUsuelDeLInstallation, codePostal, nomDeLaCommune, numDeLaVoie, nomDeLaVoie, nomDuLieuDit, installationParticuliere, nbrplaceparking, dateCreation) " +
                     "VALUES ($dept,$noDeLInstallation, $nomUsuelDeLInstallation, $codePostal, $nomDeLaCommune, $numVoie, $nomVoie, $nomLieuDit, $instPart, $nbrPark, $dateCreation)";
                 const sqlParams = {
@@ -198,14 +198,14 @@ const populateEquipement =  function() {
                 const sqlRequest = "INSERT OR IGNORE into equipement (noDeLInstallation,noDeLEquipement,nomEquipement,typeDeEquipement,nbrEquipement,nbrPlaceTribune,natureDeLEquipement,nbrVestiaire) " +
                     "VALUES ($noDeLInstallation,$noDeLEquipement,$nomEquipement,$typeDeEquipement,$nbrEquipement,$nbrPlaceTribune,$natureDeLEquipement,$nbrVestiaire)";
                 const sqlParams = {
-                    $noDeLInstallation: row.numero_de_l_installation,
-                    $noDeLEquipement: row.numero_de_la_fiche_equipement,
-                    $nomEquipement: row.nom_usuel_de_l_installation ,
-                    $typeDeEquipement: row.type_d_equipement_code,
-                    $nbrEquipement: row.nombre_d_equipement_identique,
-                    $nbrPlaceTribune: row.nombre_de_place_en_tribune,
-                    $natureDeLEquipement: row.libelle_de_la_nature_de_l_equipement,
-                    $nbrVestiaire: row.nombre_de_vestiaire_sportif
+                    $noDeLInstallation: String(row.numero_de_l_installation),
+                    $noDeLEquipement: String(row.numero_de_la_fiche_equipement),
+                    $nomEquipement: String(row.nom_usuel_de_l_installation) ,
+                    $typeDeEquipement: String(row.type_d_equipement_code),
+                    $nbrEquipement: String(row.nombre_d_equipement_identique),
+                    $nbrPlaceTribune: String(row.nombre_de_place_en_tribune),
+                    $natureDeLEquipement: String(row.libelle_de_la_nature_de_l_equipement),
+                    $nbrVestiaire: String(row.nombre_de_vestiaire_sportif)
                 };
 
                 db.run(sqlRequest, sqlParams, function (err) {
