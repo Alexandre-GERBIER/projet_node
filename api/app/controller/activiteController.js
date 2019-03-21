@@ -116,6 +116,14 @@ class activiteController{
             .then(this.common.existsSuccess(res))
             .catch(this.common.findError(res));
     };
+
+    getAdresse(req, res) {
+        let act = req.params.act;
+        let eq = req.params.eq;
+        this.activiteDao.getAdresse(act,eq)
+            .then(this.common.existsSuccess(res))
+            .catch(this.common.findError(res));
+    };
 }
 
 module.exports = activiteController;

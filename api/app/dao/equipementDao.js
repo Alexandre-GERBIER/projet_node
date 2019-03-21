@@ -19,7 +19,7 @@ class equipementDao {
      * @return entity
      */
     findById(id) {
-        let sqlRequest = "SELECT noDeLInstallation,noDeLEquipement,nomEquipement,typeDeEquipement,nbrEquipement,nbrPlaceTribune,natureDeLEquipement,nbrVestiaire FROM equipement WHERE id=$id";
+        let sqlRequest = "SELECT * FROM equipement WHERE noDeLEquipement=$id";
         let sqlParams = {$id: id};
         return this.common.findOne(sqlRequest, sqlParams).then(row =>
             new Equipement(row.noDeLInstallation, row.noDeLEquipement, row.nomEquipement, row.typeDeEquipement, row.nbrEquipement, row.nbrPlaceTribune, row.natureDeLEquipement, row.nbrVestiaire));

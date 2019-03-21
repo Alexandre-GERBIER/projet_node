@@ -1,4 +1,3 @@
-
 /* Load Activite entity*/
 const Activite = require('../model/activite');
 
@@ -11,7 +10,7 @@ const daoCommon = require('./commons/daoCommon');
  */
 class activiteDao {
 
-    constructor(){
+    constructor() {
         this.common = new daoCommon();
     };
 
@@ -20,12 +19,17 @@ class activiteDao {
      * @params id : numéro de la fiche équipement
      * @return entity
      */
-    findById(id){
+    findById(id) {
         let sqlRequest = "select* from activite where activite_code= $id";
         let sqlParams = {$id: id};
-        return this.common.findOne(sqlRequest, sqlParams).then(row =>
-            new Activite(row.code_du_departement, row.libelle_du_departement, row.nom_de_la_commune, row.numero_de_la_fiche_equipement, row.nombre_dEquipements_identiques, row.activite_libelle, row.activite_praticable, row.activite_pratiquee, row.dans_salle_specialisable, row.niveau_de_lActivite, row.localisation, row.activite_code));
-    };
+        return this.common.run(sqlRequest, sqlParams).then(rows => {
+            let activite = [];
+            for (const row of rows) {
+                activite.push(new Activite(row.code_du_departement, row.libelle_du_departement, row.nom_de_la_commune, row.numero_de_la_fiche_equipement, row.nombre_dEquipements_identiques, row.activite_libelle, row.activite_praticable, row.activite_pratiquee, row.dans_salle_specialisable, row.niveau_de_lActivite, row.localisation, row.activite_code));
+            }
+            return activite;
+        });
+    }
 
     /**
      * Finds all entities.
@@ -68,8 +72,8 @@ class activiteDao {
      */
     findByDept(numDept) {
         let sqlRequest = "SELECT * FROM activite WHERE code_du_departement=$numDept";
-        let sqlParams = {$numDept : numDept};
-        return this.common.run(sqlRequest,sqlParams).then(rows => {
+        let sqlParams = {$numDept: numDept};
+        return this.common.run(sqlRequest, sqlParams).then(rows => {
             let activite = [];
             for (const row of rows) {
                 activite.push(new Activite(row.code_du_departement, row.libelle_du_departement, row.nom_de_la_commune, row.numero_de_la_fiche_equipement, row.nombre_dEquipements_identiques, row.activite_libelle, row.activite_praticable, row.activite_pratiquee, row.dans_salle_specialisable, row.niveau_de_lActivite, row.localisation, row.activite_code));
@@ -78,7 +82,7 @@ class activiteDao {
         });
     }
 
-    selectActivite(){
+    selectActivite() {
         let sqlRequest = "SELECT DISTINCT activite_libelle FROM activite ";
         return this.common.findAll(sqlRequest).then(rows => {
             let activite = [];
@@ -91,10 +95,10 @@ class activiteDao {
         });
     }
 
-    choseActivite(id){
+    choseActivite(id) {
         let sqlRequest = "SELECT * FROM activite where activite_libelle like $id";
-        let sqlParams = {$id : id.toLowerCase()};
-        return this.common.run(sqlRequest,sqlParams).then(rows => {
+        let sqlParams = {$id: id.toLowerCase()};
+        return this.common.run(sqlRequest, sqlParams).then(rows => {
             let activite = [];
             for (const row of rows) {
                 activite.push(new Activite(row.code_du_departement, row.libelle_du_departement, row.nom_de_la_commune, row.numero_de_la_fiche_equipement, row.nombre_dEquipements_identiques, row.activite_libelle, row.activite_praticable, row.activite_pratiquee, row.dans_salle_specialisable, row.niveau_de_lActivite, row.localisation, row.activite_code));
@@ -103,10 +107,10 @@ class activiteDao {
         });
     }
 
-    choseActiviteVille(act,ville){
+    choseActiviteVille(act, ville) {
         let sqlRequest = "SELECT * FROM activite where activite_libelle like $act and nom_de_la_commune like $ville";
-        let sqlParams = {$act : act, $ville : ville};
-        return this.common.run(sqlRequest,sqlParams).then(rows => {
+        let sqlParams = {$act: act, $ville: ville};
+        return this.common.run(sqlRequest, sqlParams).then(rows => {
             let activite = [];
             for (const row of rows) {
                 activite.push(new Activite(row.code_du_departement, row.libelle_du_departement, row.nom_de_la_commune, row.numero_de_la_fiche_equipement, row.nombre_dEquipements_identiques, row.activite_libelle, row.activite_praticable, row.activite_pratiquee, row.dans_salle_specialisable, row.niveau_de_lActivite, row.localisation, row.activite_code));
@@ -115,10 +119,10 @@ class activiteDao {
         });
     }
 
-    choseVilleActivite(id){
+    choseVilleActivite(id) {
         let sqlRequest = "SELECT DISTINCT nom_de_la_commune FROM activite where activite_libelle like $id";
-        let sqlParams = {$id : id};
-        return this.common.run(sqlRequest,sqlParams).then(rows => {
+        let sqlParams = {$id: id};
+        return this.common.run(sqlRequest, sqlParams).then(rows => {
             let activite = [];
             for (const row of rows) {
                 activite.push(String(row.nom_de_la_commune));
@@ -138,13 +142,28 @@ class activiteDao {
         });
     };
 
-    selectActiviteVille(id){
+    selectActiviteVille(id) {
         let sqlRequest = "SELECT * FROM activite where nom_de_la_commune like $id";
-        let sqlParams = {$id : id};
-        return this.common.run(sqlRequest,sqlParams).then(rows => {
+        let sqlParams = {$id: id};
+        return this.common.run(sqlRequest, sqlParams).then(rows => {
             let activite = [];
             for (const row of rows) {
                 activite.push(new Activite(row.code_du_departement, row.libelle_du_departement, row.nom_de_la_commune, row.numero_de_la_fiche_equipement, row.nombre_dEquipements_identiques, row.activite_libelle, row.activite_praticable, row.activite_pratiquee, row.dans_salle_specialisable, row.niveau_de_lActivite, row.localisation, row.activite_code));
+            }
+            return activite;
+        });
+    }
+
+    getAdresse(act, eq) {
+        let sqlRequest = "select codePostal,nomDeLaCommune,numDeLaVoie,nomDeLaVoie,nomDuLieuDit from installation where noDeLInstallation " +
+            "in (select noDeLInstallation from equipement where noDeLEquipement in" +
+            "(select numero_de_la_fiche_equipement from activite where activite_code = $act and numero_de_la_fiche_equipement=$eq))";
+        let sqlParams = {$act: act, $eq: eq};
+        return this.common.run(sqlRequest, sqlParams).then(rows => {
+            let activite = [];
+            for (const row of rows) {
+                //activite.push(String(row.nomDeLaCommune)+";"+String(row.numDeLaVoie)+";"+String(row.numDeLaVoie));
+                activite.push({codePostal: row.codePostal, commune : row.nomDeLaCommune, nomDeLaVoie: row.nomDeLaVoie, numDeLaVoie: row.numDeLaVoie, nomDuLieuDit: row.nomDuLieuDit })
             }
             return activite;
         });

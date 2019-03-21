@@ -25,6 +25,11 @@ router.get('/liste',function (req,res){
     activiteController.selectActivite(res);
 });
 
+//renvoie l'adresse d'un couple activite/equipement
+router.get('/adresse/:act&:eq',function (req,res){
+    activiteController.getAdresse(req,res);
+});
+
 //renvoie les activités du département
 router.get('/departement/:id',function (req,res){
     activiteController.findByDept(req,res);
