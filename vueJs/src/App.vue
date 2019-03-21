@@ -32,7 +32,30 @@
         </div>
       </div>  
     </div>
-       {{comments}}
+    <sui-table celled striped>
+      <sui-table-header>
+        <sui-table-row>
+          <sui-table-headerCell colspan="12"> {{ affiche }}</sui-table-headerCell>
+        </sui-table-row>
+      </sui-table-header>
+
+      <sui-table-body>
+        <sui-table-row v-for="activit in activits" :key="activit.id">
+          <sui-table-cell>{{activit.activite_libelle}}</sui-table-cell>
+          <sui-table-cell>{{activit.code_du_departement}}</sui-table-cell>
+          <sui-table-cell>{{activit.libelle_du_departement}}</sui-table-cell>
+          <sui-table-cell>{{activit.nom_de_la_commune}}</sui-table-cell>
+          <sui-table-cell>{{activit.numero_de_la_fiche_equipement}}</sui-table-cell>
+          <sui-table-cell>{{activit.nombre_dEquipements_identiques}}</sui-table-cell>
+          <sui-table-cell>{{activit.activite_praticable}}</sui-table-cell>
+          <sui-table-cell>{{activit.activite_pratiquee}}</sui-table-cell>
+          <sui-table-cell>{{activit.dans_salle_specialisable}}</sui-table-cell>
+          <sui-table-cell>{{activit.niveau_de_lActivite}}</sui-table-cell>
+          <sui-table-cell>{{activit.localisation}}</sui-table-cell>
+          <sui-table-cell>{{activit.activite_code}}</sui-table-cell>
+        </sui-table-row>
+      </sui-table-body>
+    </sui-table>
     <router-view/>
   </div>
 </template>
@@ -50,26 +73,27 @@ export default {
       envoyer:"",
       colact:"grey",
       colvil:"grey",
-      comments:[],
+      activits:[],
+      affiche:"",
     }
   },
   methods: {
     activite(){
+      this.affiche="Activité"
       this.recher="act"
       this.colact="blue"
       this.colvil="grey"
+      axios.get('http://localhost:3000/api/activite').then((response)=> {
+        this.activits = response.data
+      })
     },
     ville(){
+      this.affiche="Villes"
       this.recher="vil"
       this.colvil="blue"
       this.colact="grey"
     },
-  },
-  mounted () {
-      axios.get('http://localhost:3000/api/activite').then((response)=> {
-        this.comments = response.data
-      })
-  }
+  },  
 }
 </script>
 
