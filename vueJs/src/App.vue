@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-    <sui-button @click="activite()">Activite</sui-button>
-    <sui-button class="ui button" @click="ville()">Ville</sui-button>
+    <sui-button :color="colact" @click="activite()">Activite</sui-button>
+    <sui-button :color="colvil" @click="ville()">Ville</sui-button>
     <div class="ui three column grid" v-if="recher==='act'">
       <div class="row">
         <div class="column">
-          <label>Activité</label>
+          <label>Activité :</label>
           <sui-input type="text"/>
         </div>
         <div class="column">
-          <label>Ville</label>
+          <label>Ville :</label>
           <sui-input type="text"/>
         </div>
         <div class="column">
@@ -20,18 +20,19 @@
     <div class="ui three column grid" v-if="recher==='vil'">
       <div class="row">
         <div class="column">
-          <label>Ville</label>
+          <label>Ville :</label>
           <sui-input type="text"/>
         </div>
         <div class="column">
-          <label>Activité</label>
+          <label>Activité :</label>
           <sui-input type="text"/>
         </div>
         <div class="column">
           <sui-button @click="envoie()">envoyer</sui-button>
         </div>
       </div>  
-    </div>    
+    </div>
+       {{comments}}
     <router-view/>
   </div>
 </template>
@@ -39,7 +40,7 @@
 
 
 <script>
-  import axios from 'axios'
+import axios from 'axios'
 
 export default {
   name: 'App',
@@ -47,15 +48,27 @@ export default {
     return {
       recher:"",
       envoyer:"",
+      colact:"grey",
+      colvil:"grey",
+      comments:[],
     }
   },
   methods: {
     activite(){
       this.recher="act"
+      this.colact="blue"
+      this.colvil="grey"
     },
     ville(){
       this.recher="vil"
+      this.colvil="blue"
+      this.colact="grey"
     },
+  },
+  mounted () {
+      axios.get('http://localhost:3000/api/activite').then((response)=> {
+        this.comments = response.data
+      })
   }
 }
 </script>
