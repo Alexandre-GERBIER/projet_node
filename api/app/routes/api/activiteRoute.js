@@ -21,25 +21,26 @@ router.get('/count', function (req, res) {
 });
 
 //liste des activités
-//TODO a finir => doublons
 router.get('/liste',function (req,res){
     activiteController.selectActivite(res);
-});
-
-//renvoie les entitées activite (parametre act) dans la ville (parametre ville)
-router.get('/:act&:ville',function (req,res){
-    activiteController.choseActiviteVille(req,res);
-});
-
-//renvoie l'activité ayant comme comme le parametre
-router.get('/:id', function (req, res) {
-    activiteController.findById(req, res);
 });
 
 //renvoie les activités du département
 router.get('/departement/:id',function (req,res){
     activiteController.findByDept(req,res);
 });
+
+//renvoie toutes les villes
+router.get('/activites/villes',function (req,res){
+    activiteController.choseVille(res);
+});
+
+
+//renvoie toutes les villes ou il y a l'activités ayant pour libelle le paramètre
+router.get('/activites/villes/:id',function (req,res){
+    activiteController.choseVilleActivite(req,res);
+});
+
 
 //renvoie toutes les activités ayant pour libelle le paramètre
 router.get('/activites/:id',function (req,res){
@@ -51,9 +52,15 @@ router.get('/exists/:id', function (req, res) {
     activiteController.exists(req, res);
 });
 
-//renvoie toutes les villes ou il y a l'activités ayant pour libelle le paramètre
-router.get('/activites/villes/:id',function (req,res){
-    activiteController.choseVilleActivite(req,res);
+//renvoie les entitées activite (parametre act) dans la ville (parametre ville)
+// test : basket-ball&Ancenis
+router.get('/:act&:ville',function (req,res){
+    activiteController.choseActiviteVille(req,res);
+});
+
+//renvoie l'activité ayant comme comme le parametre
+router.get('/:id', function (req, res) {
+    activiteController.findById(req, res);
 });
 
 module.exports = router;

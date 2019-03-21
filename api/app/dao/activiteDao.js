@@ -79,7 +79,7 @@ class activiteDao {
     }
 
     selectActivite(){
-        let sqlRequest = "SELECT activite_libelle FROM activite ";
+        let sqlRequest = "SELECT DISTINCT activite_libelle FROM activite ";
         return this.common.findAll(sqlRequest).then(rows => {
             let activite = [];
             for (const row of rows) {
@@ -116,7 +116,7 @@ class activiteDao {
     }
 
     choseVilleActivite(id){
-        let sqlRequest = "SELECT nom_de_la_commune FROM activite where activite_libelle like $id";
+        let sqlRequest = "SELECT DISTINCT nom_de_la_commune FROM activite where activite_libelle like $id";
         let sqlParams = {$id : id};
         return this.common.run(sqlRequest,sqlParams).then(rows => {
             let activite = [];
@@ -126,6 +126,17 @@ class activiteDao {
             return activite;
         });
     }
+
+    choseVille() {
+        let sqlRequest = "SELECT DISTINCT nom_de_la_commune FROM activite";
+        return this.common.findAll(sqlRequest).then(rows => {
+            let activite = [];
+            for (const row of rows) {
+                activite.push(String(row.nom_de_la_commune));
+            }
+            return activite;
+        });
+    };
 
 }
 

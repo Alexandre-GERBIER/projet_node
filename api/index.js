@@ -24,3 +24,4 @@ app.use(cors());
 /* Router configuration */
 const REST_API_ROOT = '/api';
 app.use(REST_API_ROOT, require('./app/routes/router'));
+
