@@ -13,7 +13,7 @@
           <sui-input type="text"/>
         </div>
         <div class="column">
-          <sui-button @click="envoie()">envoyer</sui-button>
+          <sui-button>envoyer</sui-button>
         </div>
       </div>  
     </div>
@@ -28,7 +28,7 @@
           <sui-input type="text"/>
         </div>
         <div class="column">
-          <sui-button @click="envoie()">envoyer</sui-button>
+          <sui-button>envoyer</sui-button>
         </div>
       </div>  
     </div>
