@@ -19,7 +19,7 @@
             </sui-dropdown>
         </div>
         <div class="column">
-          <sui-button>envoyer</sui-button>
+          <sui-button>valider</sui-button>
         </div>
       </div>
     </div>
@@ -49,7 +49,6 @@
         </sui-table-row>
       </sui-table-body>
     </sui-table>
-    <router-view/>
   </div>
 </template>
 
