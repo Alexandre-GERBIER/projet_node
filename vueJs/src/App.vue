@@ -45,7 +45,9 @@
           <sui-table-cell>{{activit.activite_libelle}}</sui-table-cell>
           <sui-table-cell>{{activit.libelle_du_departement}}</sui-table-cell>
           <sui-table-cell>{{activit.nom_de_la_commune}}</sui-table-cell>
-          <sui-table-cell>{{activit.numero_de_la_fiche_equipement}}</sui-table-cell>
+          <sui-table-cell>
+            <Equipement :activite="activit.activite_code" :equipement="activit.numero_de_la_fiche_equipement"/>
+          </sui-table-cell>
           <sui-table-cell>{{activit.niveau_de_lActivite}}</sui-table-cell>
           <sui-table-cell>{{activit.localisation}} boutton voir map ?</sui-table-cell>
         </sui-table-row>
@@ -57,9 +59,11 @@
 
 <script>
   import axios from 'axios'
+  import Equipement from "./components/equipement";
 
   export default {
     name: 'App',
+    components: {Equipement},
     data() {
       return {
         recher: "",
