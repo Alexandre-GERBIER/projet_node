@@ -20,7 +20,7 @@
             selection
             v-model="selectVille"/>
         </div>
-        <div class="column">
+        <div class="column" @click="envoie()">
           <sui-button>valider</sui-button>
         </div>
       </div>
@@ -74,6 +74,25 @@
         selectAct: null,
       }
     },
+    methods:{
+      envoie() {
+        if (this.selectVille==null) {
+          axios.get('http://localhost:3000/api/activite/activites/'+this.selectAct).then((response) => {
+            this.activits = response.data
+          })
+        } else if (this.selectAct==null) {
+          axios.get('http://localhost:3000/api/activite/villes/'+this.selectVille).then((response) => {
+            this.activits = response.data
+          })
+        } else {
+          axios.get('http://localhost:3000/api/activite/'+this.selectAct+'&'+this.selectVille).then((response) => {
+            this.activits = response.data
+          })
+        }
+
+      }
+    },
+
     mounted() {
       /*
         axios.get('http://localhost:3000/api/activite').then((response)=> {
