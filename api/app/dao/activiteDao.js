@@ -87,7 +87,7 @@ class activiteDao {
         return this.common.findAll(sqlRequest).then(rows => {
             let activite = [];
             for (const row of rows) {
-                activite.push({act: row.activite_libelle});
+                activite.push({value: row.activite_libelle, text: row.activite_libelle});
             }
 
 
@@ -136,7 +136,7 @@ class activiteDao {
         return this.common.findAll(sqlRequest).then(rows => {
             let activite = [];
             for (const row of rows) {
-                activite.push({ville :row.nom_de_la_commune});
+                activite.push({value: row.nom_de_la_commune, text:row.nom_de_la_commune});
             }
             return activite;
         });
