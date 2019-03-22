@@ -68,7 +68,7 @@ router.get('/:act&:ville',function (req,res){
     activiteController.choseActiviteVille(req,res);
 });
 
-//renvoie l'activité ayant comme comme le parametre
+//renvoie l'activité ayant comme id le parametre
 router.get('/:id', function (req, res) {
     activiteController.findById(req, res);
 });
