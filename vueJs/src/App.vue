@@ -24,7 +24,7 @@
           <sui-button>Réinitialiser</sui-button>
         </div>
         <div class="column" @click="envoie()">
-          <sui-button>valider</sui-button>
+          <sui-button positive >valider</sui-button>
         </div>
       </div>
     </div>
