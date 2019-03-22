@@ -4,7 +4,7 @@
       <div class="row">
         <div class="column">
           <label>Activité :</label>
-           <sui-dropdown pointing selection>
+           <sui-dropdown pointing selection placeholder="Selectionner une activite">
             <sui-dropdown-menu>
               <sui-dropdown-item v-for="listAct in listActs" :key="listAct.id">{{listAct}}</sui-dropdown-item>
             </sui-dropdown-menu>
@@ -21,7 +21,7 @@
         <div class="column">
           <sui-button>envoyer</sui-button>
         </div>
-      </div>  
+      </div>
     </div>
     <sui-table celled striped>
       <sui-table-header>
@@ -31,19 +31,21 @@
       </sui-table-header>
 
       <sui-table-body>
+        <sui-table-row >
+          <sui-table-cell>Activité</sui-table-cell>
+          <sui-table-cell>Département</sui-table-cell>
+          <sui-table-cell>Ville</sui-table-cell>
+          <sui-table-cell> voir equipement</sui-table-cell>
+          <sui-table-cell>Niveau de l'activité</sui-table-cell>
+          <sui-table-cell>boutton voir map ?</sui-table-cell>
+        </sui-table-row>
         <sui-table-row v-for="activit in activits" :key="activit.id">
           <sui-table-cell>{{activit.activite_libelle}}</sui-table-cell>
-          <sui-table-cell>{{activit.code_du_departement}}</sui-table-cell>
           <sui-table-cell>{{activit.libelle_du_departement}}</sui-table-cell>
           <sui-table-cell>{{activit.nom_de_la_commune}}</sui-table-cell>
           <sui-table-cell>{{activit.numero_de_la_fiche_equipement}}</sui-table-cell>
-          <sui-table-cell>{{activit.nombre_dEquipements_identiques}}</sui-table-cell>
-          <sui-table-cell>{{activit.activite_praticable}}</sui-table-cell>
-          <sui-table-cell>{{activit.activite_pratiquee}}</sui-table-cell>
-          <sui-table-cell>{{activit.dans_salle_specialisable}}</sui-table-cell>
           <sui-table-cell>{{activit.niveau_de_lActivite}}</sui-table-cell>
-          <sui-table-cell>{{activit.localisation}}</sui-table-cell>
-          <sui-table-cell>{{activit.activite_code}}</sui-table-cell>
+          <sui-table-cell>{{activit.localisation}} boutton voir map ?</sui-table-cell>
         </sui-table-row>
       </sui-table-body>
     </sui-table>
@@ -71,16 +73,17 @@ export default {
     }
   },
   mounted () {
+    /*
       axios.get('http://localhost:3000/api/activite').then((response)=> {
         this.activits = response.data
-      })
+      })*/
       axios.get('http://localhost:3000/api/activite/liste').then((response)=> {
         this.listActs = response.data
-      })
+      });
       axios.get('http://localhost:3000/api/activite/villes').then((response)=> {
         this.listVilles = response.data
       })
-  }  
+  }
 }
 </script>
 
