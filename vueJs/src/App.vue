@@ -1,31 +1,22 @@
 <template>
   <div id="app">
-    <sui-button :color="colact" @click="activite()">Activite</sui-button>
-    <sui-button :color="colvil" @click="ville()">Ville</sui-button>
-    <div class="ui three column grid" v-if="recher==='act'">
+    <div class="ui three column grid">
       <div class="row">
         <div class="column">
           <label>Activité :</label>
-          <sui-input type="text"/>
+           <sui-dropdown pointing selection>
+            <sui-dropdown-menu>
+              <sui-dropdown-item v-for="listAct in listActs" :key="listAct.id">{{listAct}}</sui-dropdown-item>
+            </sui-dropdown-menu>
+           </sui-dropdown>
         </div>
         <div class="column">
           <label>Ville :</label>
-          <sui-input type="text"/>
-        </div>
-        <div class="column">
-          <sui-button>envoyer</sui-button>
-        </div>
-      </div>  
-    </div>
-    <div class="ui three column grid" v-if="recher==='vil'">
-      <div class="row">
-        <div class="column">
-          <label>Ville :</label>
-          <sui-input type="text"/>
-        </div>
-        <div class="column">
-          <label>Activité :</label>
-          <sui-input type="text"/>
+            <sui-dropdown pointing selection>
+              <sui-dropdown-menu>
+                <option v-for="listVille in listVilles" :key="listVille.id">{{listVille}}</option>
+              </sui-dropdown-menu>
+            </sui-dropdown>
         </div>
         <div class="column">
           <sui-button>envoyer</sui-button>
@@ -74,26 +65,22 @@ export default {
       colact:"grey",
       colvil:"grey",
       activits:[],
+      listActs:[],
+      listVilles:[],
       affiche:"",
     }
   },
-  methods: {
-    activite(){
-      this.affiche="Activité"
-      this.recher="act"
-      this.colact="blue"
-      this.colvil="grey"
+  mounted () {
       axios.get('http://localhost:3000/api/activite').then((response)=> {
         this.activits = response.data
       })
-    },
-    ville(){
-      this.affiche="Villes"
-      this.recher="vil"
-      this.colvil="blue"
-      this.colact="grey"
-    },
-  },  
+      axios.get('http://localhost:3000/api/activite/liste').then((response)=> {
+        this.listActs = response.data
+      })
+      axios.get('http://localhost:3000/api/activite/villes').then((response)=> {
+        this.listVilles = response.data
+      })
+  }  
 }
 </script>
 
