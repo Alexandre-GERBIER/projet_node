@@ -62,6 +62,12 @@ router.get('/exists/:id', function (req, res) {
     activiteController.exists(req, res);
 });
 
+//renvoie la localisation du couple (activite,equipement)passéen paramètre
+// test : 1001$274970
+router.get('/localisation/:act&:eq',function (req,res){
+    activiteController.localisationActiviteEq(req,res);
+});
+
 //renvoie les entitées activite (parametre act) dans la ville (parametre ville)
 // test : basket-ball&Ancenis
 router.get('/:act&:ville',function (req,res){

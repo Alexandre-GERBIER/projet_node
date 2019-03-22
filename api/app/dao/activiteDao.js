@@ -162,8 +162,19 @@ class activiteDao {
         return this.common.run(sqlRequest, sqlParams).then(rows => {
             let activite = [];
             for (const row of rows) {
-                //activite.push(String(row.nomDeLaCommune)+";"+String(row.numDeLaVoie)+";"+String(row.numDeLaVoie));
                 activite.push({codePostal: row.codePostal, commune : row.nomDeLaCommune, nomDeLaVoie: row.nomDeLaVoie, numDeLaVoie: row.numDeLaVoie, nomDuLieuDit: row.nomDuLieuDit })
+            }
+            return activite;
+        });
+    }
+
+    localisationActiviteEq(act, eq) {
+        let sqlRequest = "select localisation from activite where numero_de_la_fiche_equipement=$eq and activite_code=$act ;";
+        let sqlParams = {$act: act, $eq: eq};
+        return this.common.run(sqlRequest, sqlParams).then(rows => {
+            let activite = [];
+            for (const row of rows) {
+                activite.push({localisation: row.localisation});
             }
             return activite;
         });

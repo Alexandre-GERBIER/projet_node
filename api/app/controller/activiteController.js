@@ -124,6 +124,14 @@ class activiteController{
             .then(this.common.existsSuccess(res))
             .catch(this.common.findError(res));
     };
+
+    localisationActiviteEq(req, res) {
+        let act = req.params.act;
+        let eq = req.params.eq;
+        this.activiteDao.localisationActiviteEq(act,eq)
+            .then(this.common.existsSuccess(res))
+            .catch(this.common.findError(res));
+    };
 }
 
 module.exports = activiteController;
