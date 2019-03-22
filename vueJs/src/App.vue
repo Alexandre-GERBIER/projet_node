@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="ui three column grid">
+    <div class="ui four column grid">
       <div class="row">
         <div class="column">
           <label>Activité :</label>
@@ -19,6 +19,9 @@
             search
             selection
             v-model="selectVille"/>
+        </div>
+        <div class="column" @click="reinit()">
+          <sui-button>Réinitialiser</sui-button>
         </div>
         <div class="column" @click="envoie()">
           <sui-button>valider</sui-button>
@@ -75,35 +78,35 @@
       }
     },
     methods:{
+      reinit() {
+        this.selectVille=null,
+        this.selectAct= null,
+        this.activits= []
+      },
       envoie() {
         if (this.selectVille==null) {
           axios.get('http://localhost:3000/api/activite/activites/'+this.selectAct).then((response) => {
             this.activits = response.data
-          })
+          }).catch(error => alert("Cette activité n'existe pas"))
         } else if (this.selectAct==null) {
           axios.get('http://localhost:3000/api/activite/villes/'+this.selectVille).then((response) => {
             this.activits = response.data
-          })
+          }).catch(error => alert("Cette ville n'existe pas"))
         } else {
           axios.get('http://localhost:3000/api/activite/'+this.selectAct+'&'+this.selectVille).then((response) => {
             this.activits = response.data
-          })
+          }).catch(error => alert("Cette Activité n'est pas présente dans cette ville"))
         }
-
-      }
+      },
     },
 
     mounted() {
-      /*
-        axios.get('http://localhost:3000/api/activite').then((response)=> {
-          this.activits = response.data
-        })*/
       axios.get('http://localhost:3000/api/activite/liste').then((response) => {
         this.listActs = response.data
-      });
+      }).catch(error => alert("erreur chargement list des activite :"+erreur));
       axios.get('http://localhost:3000/api/activite/villes').then((response) => {
         this.listVilles = response.data
-      })
+      }).catch(error => alert("erreur chargement list des villes :"+erreur))
     }
   }
 </script>
