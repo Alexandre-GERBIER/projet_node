@@ -238,7 +238,7 @@ const populateEquipement =  function() {
 
 const populateActivite =  function() {
     return new Promise(function (resolve, reject) {
-        const fileName = 'data/234400034_004-009_activites-des-fiches-equipements-rpdl_extra_small.csv';
+        const fileName = 'data/234400034_004-009_activites-des-fiches-equipements-rpdl.csv';
         const stream = fs.createReadStream(fileName, {encoding: 'utf8'});
 
         const parser = parse({

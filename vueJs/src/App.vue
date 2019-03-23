@@ -85,6 +85,7 @@
     },
     methods: {
       reinit() {
+        //TODO remplacer null par axios
         this.selectVille = null,
           this.selectAct = null,
           this.activits = []
@@ -113,9 +114,11 @@
         }
       },
       carte(act,eq) {
+        //TODO préparer url pour eliminer les champs vide
         axios.get(global.API+'/activite/adresse/' + act + '&' +eq).then((response) => {
           this.adresse = response.data;
-          window.open('http://www.google.com/maps/place/'+this.adresse[0].numDeLaVoie+"+"+this.adresse[0].nomDeLaVoie+"+"+this.adresse[0].nomDuLieuDit+"+"+this.adresse[0].commune, '_blank');
+          var url = String(this.adresse[0].numDeLaVoie+"+"+this.adresse[0].nomDeLaVoie+"+"+this.adresse[0].nomDuLieuDit+"+"+this.adresse[0].commune).replace(/['+']{2}/g,'+');;
+          window.open('http://www.google.com/maps/place/'+url, '_blank');
         }).catch(e => console.log("erreur equipement :" + e));
 
         //https://www.google.com/maps/place/47%C2%B011'40.6%22N+1%C2%B030'24.6%22W/@47.1946119,-1.5090321,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d47.1946119!4d-1.5068434
