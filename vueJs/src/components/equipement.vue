@@ -1,15 +1,14 @@
 <template>
   <div>
-    <sui-button floated="left" @click.native="toggle" color="teal"> détails équipement</sui-button>
-    <sui-modal v-model="open" id="small_popup">
-      <sui-modal-header>
-        <span v-if="equipementData[0]!=null">{{equipementData[0].nom}}</span>
-      </sui-modal-header>
-      <sui-modal-content v-if="equipementData[0]!=null"  text-align="center">
-        {{equipementData[0].numDeLaVoie}} {{equipementData[0].nomDeLaVoie}} <br>
-        {{equipementData[0].codePostal}} {{equipementData[0].commune}}
-      </sui-modal-content>
-    </sui-modal>
+    <sui-checkbox toggle @click.native="toggle" color="teal" v-model="open">
+      <span v-if="open==false">montrer adresse </span>
+      <span v-else>cacher adresse</span>
+    </sui-checkbox>
+    <p>
+      <span v-show="open" v-if="equipementData[0]!=null"> {{equipementData[0].nom}} </span> <br>
+      <span v-show="open" v-if="equipementData[0]!=null"> {{equipementData[0].numDeLaVoie}} {{equipementData[0].nomDeLaVoie}} </span> <br>
+      <span v-show="open" v-if="equipementData[0]!=null"> {{equipementData[0].codePostal}} {{equipementData[0].commune}} </span>
+    </p>
   </div>
 </template>
 
@@ -17,10 +16,11 @@
   import axios from 'axios'
   import SuiModalHeader from "semantic-ui-vue/dist/commonjs/modules/Modal/ModalHeader";
   import SuiModalContent from "semantic-ui-vue/dist/commonjs/modules/Modal/ModalContent";
+  import SuiCheckbox from "semantic-ui-vue/dist/commonjs/modules/Checkbox/Checkbox";
 
   export default {
     name: "equipement",
-    components: {SuiModalContent, SuiModalHeader},
+    components: {SuiCheckbox, SuiModalContent, SuiModalHeader},
     props: {
       activite: '',
       equipement: '',
@@ -33,7 +33,6 @@
     },
     methods: {
       toggle() {
-        this.open = !this.open;
         axios.get('http://localhost:3000/api/activite/adresse/' + this.activite + '&' + this.equipement).then((response) => {
           this.equipementData = response.data;
         }).catch(e => console.log("erreur equipement :" + e));
