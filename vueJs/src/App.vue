@@ -46,7 +46,9 @@
           <sui-table-cell>
             <Equipement :activite="activit.activite_code" :equipement="activit.numero_de_la_fiche_equipement"/>
           </sui-table-cell>
-          <sui-table-cell>{{activit.localisation}} boutton voir map ?</sui-table-cell>
+          <sui-table-cell>
+            <sui-button @click="carte(activit.localisation)">voir sur la carte</sui-button>
+          </sui-table-cell>
         </sui-table-row>
       </sui-table-body>
     </sui-table>
@@ -57,10 +59,12 @@
 <script>
   import axios from 'axios'
   import Equipement from "./components/equipement";
+  import Carte from "./components/carte";
+  import SuiButton from "semantic-ui-vue/dist/commonjs/elements/Button/Button";
 
   export default {
     name: 'App',
-    components: {Equipement},
+    components: {SuiButton, Equipement,Carte},
     data() {
       return {
         recher: "",
@@ -75,44 +79,48 @@
         selectAct: null,
       }
     },
-    methods:{
+    methods: {
       reinit() {
-        this.selectVille=null,
-        this.selectAct= null,
-        this.activits= []
+        this.selectVille = null,
+          this.selectAct = null,
+          this.activits = []
       },
       envoie() {
-        if (this.selectVille==null) {
-          axios.get('http://localhost:3000/api/activite/activites/'+this.selectAct).then((response) => {
+        if (this.selectVille == null) {
+          axios.get('http://localhost:3000/api/activite/activites/' + this.selectAct).then((response) => {
             this.activits = response.data;
-            axios.get('http://localhost:3000/api/activite/activites/villes/'+this.selectAct).then((response) => {
+            axios.get('http://localhost:3000/api/activite/activites/villes/' + this.selectAct).then((response) => {
               this.listVilles = response.data
-            }).catch(e => alert("erreur chargement list des villes :"+e));
+            }).catch(e => alert("erreur chargement list des villes :" + e));
           }).catch(e => alert("Cette activité n'existe pas"))
 
-        } else if (this.selectAct==null) {
-          axios.get('http://localhost:3000/api/activite/villes/'+this.selectVille).then((response) => {
+        } else if (this.selectAct == null) {
+          axios.get('http://localhost:3000/api/activite/villes/' + this.selectVille).then((response) => {
             this.activits = response.data;
-            axios.get('http://localhost:3000/api/activite/villes/liste/'+this.selectVille).then((response) => {
+            axios.get('http://localhost:3000/api/activite/villes/liste/' + this.selectVille).then((response) => {
               this.listActs = response.data
-            }).catch(e => alert("erreur chargement list des villes :"+e))
+            }).catch(e => alert("erreur chargement list des villes :" + e))
           }).catch(e => alert("Cette ville n'existe pas"))
 
         } else {
-          axios.get('http://localhost:3000/api/activite/'+this.selectAct+'&'+this.selectVille).then((response) => {
+          axios.get('http://localhost:3000/api/activite/' + this.selectAct + '&' + this.selectVille).then((response) => {
             this.activits = response.data
           }).catch(e => alert("Cette Activité n'est pas présente dans cette ville"))
         }
       },
+      carte(local) {
+        window.open('http://www.google.com/maps/place/'+local, '_blank');
+        //https://www.google.com/maps/place/47%C2%B011'40.6%22N+1%C2%B030'24.6%22W/@47.1946119,-1.5090321,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d47.1946119!4d-1.5068434
+      }
     },
 
     mounted() {
       axios.get('http://localhost:3000/api/activite/liste').then((response) => {
         this.listActs = response.data
-      }).catch(e => alert("erreur chargement list des activite :"+e));
+      }).catch(e => alert("erreur chargement list des activite :" + e));
       axios.get('http://localhost:3000/api/activite/villes').then((response) => {
         this.listVilles = response.data
-      }).catch(e => alert("erreur chargement list des villes :"+e))
+      }).catch(e => alert("erreur chargement list des villes :" + e))
     }
   }
 </script>

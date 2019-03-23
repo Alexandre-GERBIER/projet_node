@@ -20,7 +20,8 @@
     "semantic-ui-vue": "^0.8.1",
     "sqlite3": "^4.0.6",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue2-google-maps": "^0.10.6"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -68,7 +69,7 @@
     "vue-template-compiler": "^2.6.10",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.11.3",
+    "webpack-dev-server": "^2.11.4",
     "webpack-merge": "^4.1.0"
   },
   "engines": {
