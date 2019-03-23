@@ -92,18 +92,18 @@
         if (this.selectVille == null) {
           axios.get('http://localhost:3000/api/activite/activites/' + this.selectAct).then((response) => {
             this.activits = response.data;
-            axios.get('http://localhost:3000/api/activite/activites/villes/' + this.selectAct).then((response) => {
-              this.listVilles = response.data
-            }).catch(e => alert("erreur chargement list des villes :" + e));
-          }).catch(e => alert("Cette activité n'existe pas"))
+          }).catch(e => alert("Cette activité n'existe pas"));
+          axios.get('http://localhost:3000/api/activite/activites/villes/' + this.selectAct).then((response) => {
+            this.listVilles = response.data
+          }).catch(e => alert("erreur chargement list des villes :" + e));
 
         } else if (this.selectAct == null) {
           axios.get('http://localhost:3000/api/activite/villes/' + this.selectVille).then((response) => {
             this.activits = response.data;
-            axios.get('http://localhost:3000/api/activite/villes/liste/' + this.selectVille).then((response) => {
-              this.listActs = response.data
-            }).catch(e => alert("erreur chargement list des villes :" + e))
-          }).catch(e => alert("Cette ville n'existe pas"))
+          }).catch(e => alert("Cette ville n'existe pas"));
+          axios.get('http://localhost:3000/api/activite/villes/liste/' + this.selectVille).then((response) => {
+            this.listActs = response.data
+          }).catch(e => alert("erreur chargement list des villes :" + e))
 
         } else {
           axios.get('http://localhost:3000/api/activite/' + this.selectAct + '&' + this.selectVille).then((response) => {
