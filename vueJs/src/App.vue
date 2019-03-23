@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div class="ui four column grid">
-      <div class="row">
-        <div class="column">
+    <sui-grid :columns="4">
+      <sui-grid-row color="blue">
+        <sui-grid-column>
           <label>Activité :</label>
           <sui-dropdown
             :options="listActs"
@@ -10,8 +10,8 @@
             search
             selection
             v-model="selectAct"/>
-        </div>
-        <div class="column">
+        </sui-grid-column>
+        <sui-grid-column>
           <label>Ville :</label>
           <sui-dropdown
             :options="listVilles"
@@ -19,31 +19,27 @@
             search
             selection
             v-model="selectVille"/>
-        </div>
-        <div class="column" @click="reinit()">
-          <sui-button>Réinitialiser</sui-button>
-        </div>
-        <div class="column" @click="envoie()">
-          <sui-button positive >valider</sui-button>
-        </div>
-      </div>
-    </div>
-    <sui-table celled striped>
+        </sui-grid-column>
+        <sui-grid-column @click="reinit()">
+          <sui-button color="grey">Réinitialiser</sui-button>
+        </sui-grid-column>
+        <sui-grid-column @click="envoie()">
+          <sui-button positive>valider</sui-button>
+        </sui-grid-column>
+      </sui-grid-row>
+    </sui-grid>
+    <sui-table celled>
       <sui-table-header>
         <sui-table-row>
-          <sui-table-headerCell colspan="12"> {{ affiche }}</sui-table-headerCell>
+          <sui-table-header-cell>Activité</sui-table-header-cell>
+          <sui-table-header-cell>Département</sui-table-header-cell>
+          <sui-table-header-cell>Ville</sui-table-header-cell>
+          <sui-table-header-cell> voir equipement</sui-table-header-cell>
+          <sui-table-header-cell>Niveau de l'activité</sui-table-header-cell>
+          <sui-table-header-cell>boutton voir map ?</sui-table-header-cell>
         </sui-table-row>
       </sui-table-header>
-
       <sui-table-body>
-        <sui-table-row>
-          <sui-table-cell>Activité</sui-table-cell>
-          <sui-table-cell>Département</sui-table-cell>
-          <sui-table-cell>Ville</sui-table-cell>
-          <sui-table-cell> voir equipement</sui-table-cell>
-          <sui-table-cell>Niveau de l'activité</sui-table-cell>
-          <sui-table-cell>boutton voir map ?</sui-table-cell>
-        </sui-table-row>
         <sui-table-row v-for="activit in activits" :key="activit.id">
           <sui-table-cell>{{activit.activite_libelle}}</sui-table-cell>
           <sui-table-cell>{{activit.libelle_du_departement}}</sui-table-cell>
