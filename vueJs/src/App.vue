@@ -35,7 +35,6 @@
           <sui-table-header-cell>Département</sui-table-header-cell>
           <sui-table-header-cell>Ville</sui-table-header-cell>
           <sui-table-header-cell>Adresse</sui-table-header-cell>
-          <sui-table-header-cell>Niveau de l'activité</sui-table-header-cell>
           <sui-table-header-cell>boutton voir map ?</sui-table-header-cell>
         </sui-table-row>
       </sui-table-header>
@@ -47,7 +46,6 @@
           <sui-table-cell>
             <Equipement :activite="activit.activite_code" :equipement="activit.numero_de_la_fiche_equipement"/>
           </sui-table-cell>
-          <sui-table-cell>{{activit.niveau_de_lActivite}}</sui-table-cell>
           <sui-table-cell>{{activit.localisation}} boutton voir map ?</sui-table-cell>
         </sui-table-row>
       </sui-table-body>
