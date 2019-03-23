@@ -14,6 +14,9 @@ const path = require('path');
 /* Load database file (Creates file if not exists) */
 let db = new sqlite3.Database('./nantesDB.db');
 
+db.get("PRAGMA synchronous = OFF");
+db.get("PRAGMA temp_store = MEMORY");
+
 const createActivite = function () {
     return new Promise(function (resolve, reject) {
         const sqlRequest = "CREATE TABLE IF NOT EXISTS activite (" +
@@ -235,7 +238,7 @@ const populateEquipement =  function() {
 
 const populateActivite =  function() {
     return new Promise(function (resolve, reject) {
-        const fileName = 'data/234400034_004-009_activites-des-fiches-equipements-rpdl.csv';
+        const fileName = 'data/234400034_004-009_activites-des-fiches-equipements-rpdl_extra_small.csv';
         const stream = fs.createReadStream(fileName, {encoding: 'utf8'});
 
         const parser = parse({
@@ -245,7 +248,6 @@ const populateActivite =  function() {
                 replace(/[\u0300-\u036f]/g, "").
                 replace(/[^a-z0-9]/gmi, "_").
                 replace(/\s+/g, '_').
-                replace('/',' ou ').
                 toLowerCase())
         });
 
@@ -253,22 +255,24 @@ const populateActivite =  function() {
             let row;
 
             while (row = this.read()) {
+
+                //.replace(/[^a-z0-9]/gmi, "_"
+
                 const sqlRequest = "INSERT OR IGNORE into activite(code_du_departement, activite_code, libelle_du_departement, nom_de_la_commune, numero_de_la_fiche_equipement, nombre_dEquipements_identiques, activite_libelle, activite_praticable, activite_pratiquee, dans_salle_specialisable, niveau_de_lActivite, localisation) " +
                     "VALUES ($Code_du_departement, $Activite_code, $Libelle_du_departement, $Nom_de_la_commune, $Numero_de_la_fiche_equipement, $Nombre_dEquipements_identiques, $Activite_libelle, $Activite_praticable, $Activite_pratiquee, $Dans_salle_specialisable, $Niveau_de_lActivite, $localisation)";
                 const sqlParams = {
-                    $Code_du_departement: row.code_du_departement,
-                    $Activite_code: row.activite_code,
-                    $Libelle_du_departement: row.libelle_du_departement,
-                    $Nom_de_la_commune: row.nom_de_la_commune,
-                    $Numero_de_la_fiche_equipement: row.numero_de_la_fiche_equipement,
-                    $Nombre_dEquipements_identiques: row.nombre_d_equipements_identiques,
-                    $Activite_libelle: row.activite_libelle,
-                    $Activite_praticable: row.activite_praticable,
-                    $Activite_pratiquee: row.activite_pratiquee,
-                    $Dans_salle_specialisable: row.dans_salle_specialisable,
-                    //$Niveau_de_lActivite: row.niveau_de_l_activite_-_classif,
-                    $localisation:  row.localisation
-                    //TODO pk localisation ici et pas dans les autres ?
+                    $Code_du_departement: String(row.code_du_departement),
+                    $Activite_code: String(row.activite_code),
+                    $Libelle_du_departement: String(row.libelle_du_departement),
+                    $Nom_de_la_commune: String(row.nom_de_la_commune),
+                    $Numero_de_la_fiche_equipement: String(row.numero_de_la_fiche_equipement),
+                    $Nombre_dEquipements_identiques: String(row.nombre_d_equipements_identiques),
+                    $Activite_libelle: String(row.activite_libelle).replace(/[\u002f]/g, " , ") ,
+                    $Activite_praticable: String(row.activite_praticable),
+                    $Activite_pratiquee: String(row.activite_pratiquee),
+                    $Dans_salle_specialisable: String(row.dans_salle_specialisable),
+                    //$Niveau_de_lActivite: String(row.niveau_de_l_activite_-_classif,
+                    $localisation:  String(row.localisation)
                 };
 
 
