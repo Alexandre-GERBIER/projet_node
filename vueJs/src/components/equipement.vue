@@ -1,8 +1,8 @@
 <template>
   <div>
     <sui-checkbox toggle @click.native="toggle" color="teal" v-model="open">
-      <span v-if="open==false">montrer adresse </span>
-      <span v-else>cacher adresse</span>
+      <span v-if="open==false">afficher l'adresse </span>
+      <span v-else>masquer l'adresse</span>
     </sui-checkbox>
     <p>
       <span v-show="open" v-if="equipementData[0]!=null"> {{equipementData[0].nom}} </span> <br>

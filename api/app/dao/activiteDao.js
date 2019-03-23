@@ -125,7 +125,7 @@ class activiteDao {
         return this.common.run(sqlRequest, sqlParams).then(rows => {
             let activite = [];
             for (const row of rows) {
-                activite.push(String(row.nom_de_la_commune));
+                activite.push({value: row.nom_de_la_commune,text: row.nom_de_la_commune});
             }
             return activite;
         });
@@ -175,6 +175,18 @@ class activiteDao {
             let activite = [];
             for (const row of rows) {
                 activite.push({localisation: row.localisation});
+            }
+            return activite;
+        });
+    }
+
+    selectActiviteVilleListe(id) {
+        let sqlRequest = "SELECT activite_libelle FROM activite where nom_de_la_commune like $id";
+        let sqlParams = {$id: id};
+        return this.common.run(sqlRequest, sqlParams).then(rows => {
+            let activite = [];
+            for (const row of rows) {
+                activite.push({value: row.activite_libelle, text: row.activite_libelle});
             }
             return activite;
         });

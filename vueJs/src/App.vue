@@ -34,7 +34,7 @@
           <sui-table-header-cell>Activité</sui-table-header-cell>
           <sui-table-header-cell>Département</sui-table-header-cell>
           <sui-table-header-cell>Ville</sui-table-header-cell>
-          <sui-table-header-cell> voir equipement</sui-table-header-cell>
+          <sui-table-header-cell>Adresse</sui-table-header-cell>
           <sui-table-header-cell>Niveau de l'activité</sui-table-header-cell>
           <sui-table-header-cell>boutton voir map ?</sui-table-header-cell>
         </sui-table-row>
@@ -86,12 +86,20 @@
       envoie() {
         if (this.selectVille==null) {
           axios.get('http://localhost:3000/api/activite/activites/'+this.selectAct).then((response) => {
-            this.activits = response.data
+            this.activits = response.data;
+            axios.get('http://localhost:3000/api/activite/activites/villes/'+this.selectAct).then((response) => {
+              this.listVilles = response.data
+            }).catch(e => alert("erreur chargement list des villes :"+e));
           }).catch(e => alert("Cette activité n'existe pas"))
+
         } else if (this.selectAct==null) {
           axios.get('http://localhost:3000/api/activite/villes/'+this.selectVille).then((response) => {
-            this.activits = response.data
+            this.activits = response.data;
+            axios.get('http://localhost:3000/api/activite/villes/liste/'+this.selectVille).then((response) => {
+              this.listActs = response.data
+            }).catch(e => alert("erreur chargement list des villes :"+e))
           }).catch(e => alert("Cette ville n'existe pas"))
+
         } else {
           axios.get('http://localhost:3000/api/activite/'+this.selectAct+'&'+this.selectVille).then((response) => {
             this.activits = response.data

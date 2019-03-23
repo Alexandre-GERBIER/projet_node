@@ -40,6 +40,11 @@ router.get('/villes',function (req,res){
     activiteController.choseVille(res);
 });
 
+//renvoie une liste de toutes les activites de la ville
+router.get('/villes/liste/:id',function (req,res){
+    activiteController.selectActiviteVilleListe(req,res);
+});
+
 //renvoie toutes les activites de la ville
 router.get('/villes/:id',function (req,res){
     activiteController.selectActiviteVille(req,res);
