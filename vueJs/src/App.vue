@@ -130,16 +130,16 @@
 
 
   #salut{
-    background-color:rgb(0, 126, 63);
+    background-color:rgb(28, 126, 192);
     color: aliceblue;
   }
 
   table,thead,tr,th{
-    background-color:rgb(0, 252, 126);
+    background-color:rgb(255, 255, 255);
   }
 
   #grid {
-    background-color:rgb(2, 65, 0);
+    background-color:rgb(17, 0, 255);
     color: white
   }
 
