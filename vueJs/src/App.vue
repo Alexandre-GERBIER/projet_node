@@ -61,13 +61,13 @@
 
 <script>
   import axios from 'axios'
+  import global from '@/globals.json'
   import Equipement from "./components/equipement";
-  import Carte from "./components/carte";
   import SuiButton from "semantic-ui-vue/dist/commonjs/elements/Button/Button";
 
   export default {
     name: 'App',
-    components: {SuiButton, Equipement,Carte},
+    components: {SuiButton, Equipement},
     data() {
       return {
         recher: "",
@@ -91,29 +91,29 @@
       },
       envoie() {
         if (this.selectVille == null) {
-          axios.get('http://localhost:3000/api/activite/activites/' + this.selectAct).then((response) => {
+          axios.get(global.API+'/activite/activites/' + this.selectAct).then((response) => {
             this.activits = response.data;
           }).catch(e => alert("Cette activité n'existe pas"));
-          axios.get('http://localhost:3000/api/activite/activites/villes/' + this.selectAct).then((response) => {
+          axios.get(global.API+'/activite/activites/villes/' + this.selectAct).then((response) => {
             this.listVilles = response.data
           }).catch(e => alert("erreur chargement list des villes :" + e));
 
         } else if (this.selectAct == null) {
-          axios.get('http://localhost:3000/api/activite/villes/' + this.selectVille).then((response) => {
+          axios.get(global.API+'/activite/villes/' + this.selectVille).then((response) => {
             this.activits = response.data;
           }).catch(e => alert("Cette ville n'existe pas"));
-          axios.get('http://localhost:3000/api/activite/villes/liste/' + this.selectVille).then((response) => {
+          axios.get(global.API+'/activite/villes/liste/' + this.selectVille).then((response) => {
             this.listActs = response.data
           }).catch(e => alert("erreur chargement list des villes :" + e))
 
         } else {
-          axios.get('http://localhost:3000/api/activite/' + this.selectAct + '&' + this.selectVille).then((response) => {
+          axios.get(global.API+'/activite/' + this.selectAct + '&' + this.selectVille).then((response) => {
             this.activits = response.data
           }).catch(e => alert("Cette Activité n'est pas présente dans cette ville"))
         }
       },
       carte(act,eq) {
-        axios.get('http://localhost:3000/api/activite/adresse/' + act + '&' +eq).then((response) => {
+        axios.get(global.API+'/activite/adresse/' + act + '&' +eq).then((response) => {
           this.adresse = response.data;
           window.open('http://www.google.com/maps/place/'+this.adresse[0].numDeLaVoie+"+"+this.adresse[0].nomDeLaVoie+"+"+this.adresse[0].nomDuLieuDit+"+"+this.adresse[0].commune, '_blank');
         }).catch(e => console.log("erreur equipement :" + e));
@@ -123,10 +123,10 @@
     },
 
     mounted() {
-      axios.get('http://localhost:3000/api/activite/liste').then((response) => {
+      axios.get(global.API+'/activite/liste').then((response) => {
         this.listActs = response.data
       }).catch(e => alert("erreur chargement list des activite :" + e));
-      axios.get('http://localhost:3000/api/activite/villes').then((response) => {
+      axios.get(global.API+'/activite/villes').then((response) => {
         this.listVilles = response.data
       }).catch(e => alert("erreur chargement list des villes :" + e))
     }
