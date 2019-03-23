@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <sui-grid :columns="4">
-      <sui-grid-row color="blue">
+      <sui-grid-row id="grid">
         <sui-grid-column>
           <label>Activité :</label>
           <sui-dropdown
@@ -28,14 +28,14 @@
         </sui-grid-column>
       </sui-grid-row>
     </sui-grid>
-    <sui-table celled>
-      <sui-table-header>
+    <sui-table celled id="tableau">
+      <sui-table-header id="thead">
         <sui-table-row>
-          <sui-table-header-cell>Activité</sui-table-header-cell>
-          <sui-table-header-cell>Département</sui-table-header-cell>
-          <sui-table-header-cell>Ville</sui-table-header-cell>
-          <sui-table-header-cell>Adresse</sui-table-header-cell>
-          <sui-table-header-cell>boutton voir map ?</sui-table-header-cell>
+          <sui-table-header-cell id="salut">Activité</sui-table-header-cell>
+          <sui-table-header-cell id="salut">Département</sui-table-header-cell>
+          <sui-table-header-cell id="salut">Ville</sui-table-header-cell>
+          <sui-table-header-cell id="salut">Adresse</sui-table-header-cell>
+          <sui-table-header-cell id="salut">boutton voir map ?</sui-table-header-cell>
         </sui-table-row>
       </sui-table-header>
       <sui-table-body>
@@ -125,6 +125,23 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+    margin-top: 10px;
   }
+
+
+  #salut{
+    background-color:rgb(0, 126, 63);
+    color: aliceblue;
+  }
+
+  table,thead,tr,th{
+    background-color:rgb(0, 252, 126);
+  }
+
+  #grid {
+    background-color:rgb(2, 65, 0);
+    color: white
+  }
+
+
 </style>
