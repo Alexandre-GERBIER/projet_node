@@ -60,6 +60,7 @@ class equipementController{
             .then(this.common.existsSuccess(res))
             .catch(this.common.findError(res));
     };
+
 }
 
 module.exports = equipementController;

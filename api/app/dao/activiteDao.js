@@ -155,14 +155,14 @@ class activiteDao {
     }
 
     getAdresse(act, eq) {
-        let sqlRequest = "select codePostal,nomDeLaCommune,numDeLaVoie,nomDeLaVoie,nomDuLieuDit from installation where noDeLInstallation " +
+        let sqlRequest = "select * from installation where noDeLInstallation " +
             "in (select noDeLInstallation from equipement where noDeLEquipement in" +
             "(select numero_de_la_fiche_equipement from activite where activite_code = $act and numero_de_la_fiche_equipement=$eq))";
         let sqlParams = {$act: act, $eq: eq};
         return this.common.run(sqlRequest, sqlParams).then(rows => {
             let activite = [];
             for (const row of rows) {
-                activite.push({codePostal: row.codePostal, commune : row.nomDeLaCommune, nomDeLaVoie: row.nomDeLaVoie, numDeLaVoie: row.numDeLaVoie, nomDuLieuDit: row.nomDuLieuDit })
+                activite.push({ nom: row.nomUsuelDeLInstallation, codePostal: row.codePostal, commune : row.nomDeLaCommune, nomDeLaVoie: row.nomDeLaVoie, numDeLaVoie: row.numDeLaVoie, nomDuLieuDit: row.nomDuLieuDit})
             }
             return activite;
         });

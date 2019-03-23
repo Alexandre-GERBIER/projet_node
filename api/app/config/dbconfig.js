@@ -112,7 +112,7 @@ const createInstallation = function() {
 
 const populateInstallation =  function() {
     return new Promise(function (resolve, reject) {
-        const fileName = 'data/234400034_004-010_fiches-installations-rpdl_small.csv';
+        const fileName = 'data/234400034_004-010_fiches-installations-rpdl.csv';
         const stream = fs.createReadStream(fileName, {encoding: 'utf8'});
 
 
@@ -178,7 +178,7 @@ const populateInstallation =  function() {
 
 const populateEquipement =  function() {
     return new Promise(function (resolve, reject) {
-        const fileName = 'data/234400034_004-011_fiches-equipements-rpdl_small.csv';
+        const fileName = 'data/234400034_004-011_fiches-equipements-rpdl.csv';
         const stream = fs.createReadStream(fileName, {encoding: 'utf8'});
 
         const parser = parse({
@@ -236,7 +236,7 @@ const populateEquipement =  function() {
 const populateActivite =  function() {
     return new Promise(function (resolve, reject) {
         //TODO changer les parametres en fonction de ceux choisi
-        const fileName = 'data/234400034_004-009_activites-des-fiches-equipements-rpdl_small.csv';
+        const fileName = 'data/234400034_004-009_activites-des-fiches-equipements-rpdl.csv';
         const stream = fs.createReadStream(fileName, {encoding: 'utf8'});
 
         const parser = parse({
@@ -285,6 +285,7 @@ const populateActivite =  function() {
 
         parser.on('finish', function ()  {
             console.log("Activités importées");
+            console.log("paramétrage base de données fini");
             resolve(this);
 
         });

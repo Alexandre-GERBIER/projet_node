@@ -13,15 +13,15 @@ router.get('/', function (req, res) {
     equipementController.findAll(res);
 });
 
-router.get('/:id', function (req, res) {
-    equipementController.findById(req, res);
-});
-
 router.get('/count', function (req, res) {
     equipementController.countAll(res);
 });
 
 router.get('/exists/:id', function (req, res) {
     equipementController.exists(req, res);
+});
+
+router.get('/:id', function (req, res) {
+    equipementController.findById(req, res);
 });
 module.exports = router;
