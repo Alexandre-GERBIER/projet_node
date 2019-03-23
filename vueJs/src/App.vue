@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <sui-grid :columns="4">
+    <sui-grid :columns="5">
       <sui-grid-row id="grid">
+        <sui-grid-column>
+          <img id="image" src="img/banderole.jpg"/>
+        </sui-grid-column>
         <sui-grid-column>
           <label>Activité :</label>
           <sui-dropdown
@@ -139,9 +142,7 @@
   }
 
   #grid {
-    background-color:rgb(17, 0, 255);
+    background-color:rgb(0, 42, 158);
     color: white
   }
-
-
 </style>
