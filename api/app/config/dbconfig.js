@@ -235,7 +235,6 @@ const populateEquipement =  function() {
 
 const populateActivite =  function() {
     return new Promise(function (resolve, reject) {
-        //TODO changer les parametres en fonction de ceux choisi
         const fileName = 'data/234400034_004-009_activites-des-fiches-equipements-rpdl.csv';
         const stream = fs.createReadStream(fileName, {encoding: 'utf8'});
 
@@ -246,6 +245,7 @@ const populateActivite =  function() {
                 replace(/[\u0300-\u036f]/g, "").
                 replace(/[^a-z0-9]/gmi, "_").
                 replace(/\s+/g, '_').
+                replace('/',' ou ').
                 toLowerCase())
         });
 

@@ -3,7 +3,7 @@
     <sui-grid :columns="5">
       <sui-grid-row id="grid">
         <sui-grid-column>
-          <img id="image" src="img/banderole.jpg"/>
+          <img id="image" src="./img/banderole.jpg"/>
         </sui-grid-column>
         <sui-grid-column>
           <label>Activité :</label>
@@ -38,7 +38,7 @@
           <sui-table-header-cell id="salut">Département</sui-table-header-cell>
           <sui-table-header-cell id="salut">Ville</sui-table-header-cell>
           <sui-table-header-cell id="salut">Adresse</sui-table-header-cell>
-          <sui-table-header-cell id="salut">boutton voir map ?</sui-table-header-cell>
+          <sui-table-header-cell id="salut">Carte</sui-table-header-cell>
         </sui-table-row>
       </sui-table-header>
       <sui-table-body>
