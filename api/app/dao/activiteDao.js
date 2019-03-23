@@ -20,7 +20,7 @@ class activiteDao {
      * @return entity
      */
     findById(id) {
-        let sqlRequest = "select* from activite where activite_code= $id";
+        let sqlRequest = "select * from activite where activite_code= $id";
         let sqlParams = {$id: id};
         return this.common.run(sqlRequest, sqlParams).then(rows => {
             let activite = [];
@@ -82,8 +82,12 @@ class activiteDao {
         });
     }
 
+    /**
+     * renvoie une liste de toutes les activités différentes
+     * @returns {Promise<Array | never>}
+     */
     selectActivite() {
-        let sqlRequest = "SELECT DISTINCT activite_libelle FROM activite ";
+        let sqlRequest = "SELECT DISTINCT activite_libelle FROM activite order by activite_libelle";
         return this.common.findAll(sqlRequest).then(rows => {
             let activite = [];
             for (const row of rows) {
@@ -95,6 +99,11 @@ class activiteDao {
         });
     }
 
+    /**
+     * renvoie un tableau d'activités dont le libellé correspond au paramètre
+     * @param id libellé des activités
+     * @returns {Promise<Array | never>}
+     */
     choseActivite(id) {
         let sqlRequest = "SELECT * FROM activite where activite_libelle like $id";
         let sqlParams = {$id: id.toLowerCase()};
@@ -107,6 +116,12 @@ class activiteDao {
         });
     }
 
+    /**
+     * renvoie une liste d'activités dont le libellé est un paramètre et dans la commune en paramètre
+     * @param act libellé de l'activité
+     * @param ville nom de la commune
+     * @returns {Promise<Array | never>}
+     */
     choseActiviteVille(act, ville) {
         let sqlRequest = "SELECT * FROM activite where activite_libelle like $act and nom_de_la_commune like $ville";
         let sqlParams = {$act: act, $ville: ville};
@@ -119,8 +134,13 @@ class activiteDao {
         });
     }
 
+    /**
+     * renvoie une liste des commune où l'activité est réalisable
+     * @param id activité
+     * @returns {Promise<Array | never>}
+     */
     choseVilleActivite(id) {
-        let sqlRequest = "SELECT DISTINCT nom_de_la_commune FROM activite where activite_libelle like $id";
+        let sqlRequest = "SELECT DISTINCT nom_de_la_commune FROM activite where activite_libelle like $id order by nom_de_la_commune";
         let sqlParams = {$id: id};
         return this.common.run(sqlRequest, sqlParams).then(rows => {
             let activite = [];
@@ -131,8 +151,12 @@ class activiteDao {
         });
     }
 
+    /**
+     * renvoie une liste des communes
+     * @returns {Promise<Array | never>}
+     */
     choseVille() {
-        let sqlRequest = "SELECT DISTINCT nom_de_la_commune FROM activite";
+        let sqlRequest = "SELECT DISTINCT nom_de_la_commune FROM activite order by nom_de_la_commune";
         return this.common.findAll(sqlRequest).then(rows => {
             let activite = [];
             for (const row of rows) {
@@ -142,6 +166,11 @@ class activiteDao {
         });
     };
 
+    /**
+     * renvoie un tableau des activités de la commune
+     * @param id commune
+     * @returns {Promise<Array | never>}
+     */
     selectActiviteVille(id) {
         let sqlRequest = "SELECT * FROM activite where nom_de_la_commune like $id";
         let sqlParams = {$id: id};
@@ -154,6 +183,12 @@ class activiteDao {
         });
     }
 
+    /**
+     * renvoie l'installation associée à une instance d'activité (identifiée par un couple (numéro activité, numéro équipement))
+     * @param act numéro de l'activité
+     * @param eq numéro de la fiche équipement
+     * @returns {Promise<Array | never>}
+     */
     getAdresse(act, eq) {
         let sqlRequest = "select * from installation where noDeLInstallation " +
             "in (select noDeLInstallation from equipement where noDeLEquipement in" +
@@ -168,6 +203,12 @@ class activiteDao {
         });
     }
 
+    /**
+     * renvoie la localisation d'un couple (activité,equipement)
+     * @param act numéro de l'activité
+     * @param eq numéro de la fiche l'équipement associée
+     * @returns {Promise<Array | never>}
+     */
     localisationActiviteEq(act, eq) {
         let sqlRequest = "select localisation from activite where numero_de_la_fiche_equipement=$eq and activite_code=$act ;";
         let sqlParams = {$act: act, $eq: eq};
@@ -180,8 +221,13 @@ class activiteDao {
         });
     }
 
+    /**
+     * renvoie une liste des libelle des activités de la commune
+     * @param id  commune
+     * @returns {Promise<Array | never>}
+     */
     selectActiviteVilleListe(id) {
-        let sqlRequest = "SELECT activite_libelle FROM activite where nom_de_la_commune like $id";
+        let sqlRequest = "SELECT activite_libelle FROM activite where nom_de_la_commune like $id order by activite_libelle";
         let sqlParams = {$id: id};
         return this.common.run(sqlRequest, sqlParams).then(rows => {
             let activite = [];
