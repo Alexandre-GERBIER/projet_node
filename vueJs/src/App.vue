@@ -50,7 +50,7 @@
             <Equipement :activite="activit.activite_code" :equipement="activit.numero_de_la_fiche_equipement"/>
           </sui-table-cell>
           <sui-table-cell>
-            <sui-button @click="carte(activit.localisation)">voir sur la carte</sui-button>
+            <sui-button @click="carte(activit.activite_code,activit.numero_de_la_fiche_equipement)">voir sur la carte</sui-button>
           </sui-table-cell>
         </sui-table-row>
       </sui-table-body>
@@ -80,6 +80,7 @@
         affiche: "",
         selectVille: null,
         selectAct: null,
+        adresse: "",
       }
     },
     methods: {
@@ -111,8 +112,12 @@
           }).catch(e => alert("Cette Activité n'est pas présente dans cette ville"))
         }
       },
-      carte(local) {
-        window.open('http://www.google.com/maps/place/'+local, '_blank');
+      carte(act,eq) {
+        axios.get('http://localhost:3000/api/activite/adresse/' + act + '&' +eq).then((response) => {
+          this.adresse = response.data;
+          window.open('http://www.google.com/maps/place/'+this.adresse[0].numDeLaVoie+"+"+this.adresse[0].nomDeLaVoie+"+"+this.adresse[0].nomDuLieuDit+"+"+this.adresse[0].commune, '_blank');
+        }).catch(e => console.log("erreur equipement :" + e));
+
         //https://www.google.com/maps/place/47%C2%B011'40.6%22N+1%C2%B030'24.6%22W/@47.1946119,-1.5090321,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x0!8m2!3d47.1946119!4d-1.5068434
       }
     },
