@@ -19,7 +19,7 @@ class InstallationDao {
      * @return entity
      */
     findById(id) {
-        let sqlRequest = "SELECT noDeLIntallation,nomUsuelDeLIstallation,codePostal,nomDeLaCommune,numDeLaVoie,nomDeLaVoie,nomDuLieuDit,installationPariculiere,nbrplaceparking,dateCreation FROM installation WHERE id=$id";
+        let sqlRequest = "SELECT * FROM installation WHERE noDeLInstallation=$id";
         let sqlParams = {$id: id};
         return this.common.findOne(sqlRequest, sqlParams).then(row =>
             new Installation(row.departement, row.noDeLIntallation, row.nomUsuelDeLIstallation, row.codePostal, row.nomDeLaCommune, row.numDeLaVoie, row.nomDeLaVoie, row.nomDuLieuDit, row.installationPariculiere, row.nbrplaceparking, row.dateCreation));

@@ -9,9 +9,7 @@ const installationController = new InstallationController();
 /**
  * Installation Entity routes
  */
-router.get('/:id', function (req, res) {
-    installationController.findById(req, res);
-});
+
 
 router.get('/', function (req, res) {
     installationController.findAll(res);
@@ -22,5 +20,9 @@ router.get('/count', function (req, res) {
 
 router.get('/exists/:id', function (req, res) {
     installationController.exists(req, res);
+});
+
+router.get('/:id', function (req, res) {
+    installationController.findById(req, res);
 });
 module.exports = router;

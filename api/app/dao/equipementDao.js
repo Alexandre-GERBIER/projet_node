@@ -25,6 +25,10 @@ class equipementDao {
             new Equipement(row.noDeLInstallation, row.noDeLEquipement, row.nomEquipement, row.typeDeEquipement, row.nbrEquipement, row.nbrPlaceTribune, row.natureDeLEquipement, row.nbrVestiaire));
     };
 
+    /**
+     * retourne un table de toutes les entités equipement
+     * @returns {Promise<Array | never>}
+     */
     findAll() {
         let sqlRequest = "SELECT * FROM equipement";
         return this.common.findAll(sqlRequest).then(rows => {
@@ -36,11 +40,18 @@ class equipementDao {
         });
     };
 
+    /**
+     * retourne le nombre d 'équipements
+     */
     countAll() {
         let sqlRequest = "SELECT COUNT(*) AS count FROM equipement";
         return this.common.findOne(sqlRequest);
     };
 
+    /**
+     * retourne si l'equipement existe
+     * @param id
+     */
     exists(id) {
         let sqlRequest = "SELECT (count(*) > 0) as found FROM equipement WHERE id=$id";
         let sqlParams = {$id: id};
