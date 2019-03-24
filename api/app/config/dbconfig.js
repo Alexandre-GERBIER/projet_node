@@ -95,6 +95,7 @@ const createInstallation = function() {
             "installationParticuliere TEXT NOT NULL," +
             "nbrplaceparking TEXT NOT NULL," +
             "dateCreation TEXT NOT NULL," +
+            "accesMobiliteReduite TEXT NOT NULL," +
             "PRIMARY KEY (noDeLInstallation))";
 
         db.run(sqlRequest,[], (err) => {
@@ -134,8 +135,8 @@ const populateInstallation =  function() {
             let row;
 
             while (row = this.read()) {
-                const sqlRequest = "INSERT OR IGNORE into installation (departement, noDeLInstallation, nomUsuelDeLInstallation, codePostal, nomDeLaCommune, numDeLaVoie, nomDeLaVoie, nomDuLieuDit, installationParticuliere, nbrplaceparking, dateCreation) " +
-                    "VALUES ($dept,$noDeLInstallation, $nomUsuelDeLInstallation, $codePostal, $nomDeLaCommune, $numVoie, $nomVoie, $nomLieuDit, $instPart, $nbrPark, $dateCreation)";
+                const sqlRequest = "INSERT OR IGNORE into installation (departement, noDeLInstallation, nomUsuelDeLInstallation, codePostal, nomDeLaCommune, numDeLaVoie, nomDeLaVoie, nomDuLieuDit, installationParticuliere, nbrplaceparking, dateCreation, accesMobiliteReduite) " +
+                    "VALUES ($dept,$noDeLInstallation, $nomUsuelDeLInstallation, $codePostal, $nomDeLaCommune, $numVoie, $nomVoie, $nomLieuDit, $instPart, $nbrPark, $dateCreation, $accesMobiliteReduite)";
                 const sqlParams = {
                     $dept: String(row.code_du_departement),
                     $noDeLInstallation: String(row.numero_de_l_installation),
@@ -147,7 +148,8 @@ const populateInstallation =  function() {
                     $nomLieuDit: String(row.nom_du_lieu_dit),
                     $instPart: String(row.installation_particuliere),
                     $nbrPark: String(row.nombre_total_de_place_de_parking),
-                    $dateCreation: String(row.date_de_creation_de_la_fiche_installation)
+                    $dateCreation: String(row.date_de_creation_de_la_fiche_installation),
+                    $accesMobiliteReduite : String(row.accessibilite_handicapes_a_mobilite_reduite)
                 };
 
 
@@ -208,7 +210,7 @@ const populateEquipement =  function() {
                     $nbrEquipement: String(row.nombre_d_equipement_identique),
                     $nbrPlaceTribune: String(row.nombre_de_place_en_tribune),
                     $natureDeLEquipement: String(row.libelle_de_la_nature_de_l_equipement),
-                    $nbrVestiaire: String(row.nombre_de_vestiaire_sportif)
+                    $nbrVestiaire: String(row.nombre_de_vestiaire_sportif),
                 };
 
                 db.run(sqlRequest, sqlParams, function (err) {

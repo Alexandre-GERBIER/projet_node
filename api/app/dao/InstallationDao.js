@@ -22,7 +22,7 @@ class InstallationDao {
         let sqlRequest = "SELECT * FROM installation WHERE noDeLInstallation=$id";
         let sqlParams = {$id: id};
         return this.common.findOne(sqlRequest, sqlParams).then(row =>
-            new Installation(row.departement, row.noDeLIntallation, row.nomUsuelDeLIstallation, row.codePostal, row.nomDeLaCommune, row.numDeLaVoie, row.nomDeLaVoie, row.nomDuLieuDit, row.installationPariculiere, row.nbrplaceparking, row.dateCreation));
+            new Installation(row.departement, row.noDeLIntallation, row.nomUsuelDeLIstallation, row.codePostal, row.nomDeLaCommune, row.numDeLaVoie, row.nomDeLaVoie, row.nomDuLieuDit, row.installationPariculiere, row.nbrplaceparking, row.dateCreation,row.accesMobiliteReduite));
     };
 
     findAll() {
@@ -30,7 +30,7 @@ class InstallationDao {
         return this.common.findAll(sqlRequest).then(rows => {
             let installations = [];
             for (const row of rows) {
-                installations.push(new Installation(row.departement,row.noDeLIntallation, row.nomUsuelDeLIstallation, row.codePostal, row.nomDeLaCommune, row.numDeLaVoie, row.nomDeLaVoie, row.nomDuLieuDit, row.installationPariculiere, row.nbrplaceparking, row.dateCreation));
+                installations.push(new Installation(row.departement,row.noDeLIntallation, row.nomUsuelDeLIstallation, row.codePostal, row.nomDeLaCommune, row.numDeLaVoie, row.nomDeLaVoie, row.nomDuLieuDit, row.installationPariculiere, row.nbrplaceparking, row.dateCreation,row.accesMobiliteReduite));
             }
             return installations;
         });

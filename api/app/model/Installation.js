@@ -1,6 +1,6 @@
 
 class Installation {
-    constructor(departement,noDeLIntallation,nomUsuelDeLIstallation,codePostal,nomDeLaCommune,numDeLaVoie,nomDeLaVoie,nomDuLieuDit,installationPariculiere,nbrplaceparking,dateCreation) {
+    constructor(departement,noDeLIntallation,nomUsuelDeLIstallation,codePostal,nomDeLaCommune,numDeLaVoie,nomDeLaVoie,nomDuLieuDit,installationPariculiere,nbrplaceparking,dateCreation,accesMobiliteReduite) {
         this.departement = departement;
         this.noDeLIntallation = noDeLIntallation;
         this.nomUsuelDeLIstallation = nomUsuelDeLIstallation;
@@ -12,6 +12,7 @@ class Installation {
         this.installationPariculiere = installationPariculiere;
         this.nbrplaceparking = nbrplaceparking;
         this.dateCreation = dateCreation;
+        this.accesMobiliteReduite = accesMobiliteReduite;
     }
 }
 

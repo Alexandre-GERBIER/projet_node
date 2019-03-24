@@ -4,9 +4,15 @@
     <sui-modal v-model="open">
       <sui-modal-header>
         {{activite.activite_libelle}} à {{installation.nomDeLaCommune}}
+        <sui-icon v-if="installation.accesMobiliteReduite === 'Oui'" name="handicap" color="blue" size="big" />
       </sui-modal-header>
       <sui-modal-content>
         <sui-list>
+          <sui-item>
+            <sui-item-content>
+              accès pour personnes à mobilités réduites : {{installation.accesMobiliteReduite}}
+            </sui-item-content>
+          </sui-item>
           <sui-item>
             <sui-item-content v-if="activite.niveau_de_lActivite != null">
               Niveau de l'acvtivité : {{activite.niveau_de_lActivite}}
@@ -46,10 +52,11 @@
   import SuiTableRow from "semantic-ui-vue/dist/commonjs/collections/Table/TableRow";
   import SuiTableCell from "semantic-ui-vue/dist/commonjs/collections/Table/TableCell";
   import SuiItemContent from "semantic-ui-vue/dist/commonjs/views/Item/ItemContent";
+  import SuiItem from "semantic-ui-vue/dist/commonjs/views/Item/Item";
 
   export default {
     name: "détails",
-    components: {SuiItemContent, SuiTableCell, SuiTableRow, SuiTable, SuiModal, SuiButton},
+    components: {SuiItem, SuiItemContent, SuiTableCell, SuiTableRow, SuiTable, SuiModal, SuiButton},
     props: {
       activite: '',
     },
