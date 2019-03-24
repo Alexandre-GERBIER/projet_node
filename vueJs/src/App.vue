@@ -50,9 +50,9 @@
           <sui-table-cell>
             <Equipement :activite="activit.activite_code" :equipement="activit.numero_de_la_fiche_equipement"/>
           </sui-table-cell>
-          <sui-bale-cell>
+          <sui-table-cell>
             <Details :activite="activit"/>
-          </sui-bale-cell>
+          </sui-table-cell>
           <sui-table-cell>
             <sui-button @click="carte(activit.activite_code,activit.numero_de_la_fiche_equipement)">voir sur la carte
             </sui-button>

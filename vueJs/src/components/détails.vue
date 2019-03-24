@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sui-button @click="toggle()" color="teal">En savoir plus</sui-button>
+    <sui-button @click="toggle()" color="teal" >En savoir plus</sui-button>
     <sui-modal v-model="open">
       <sui-modal-header>
         {{activite.activite_libelle}} à {{installation.nomDeLaCommune}}
@@ -32,10 +32,7 @@
             <sui-item-content v-if="installation.nbrplaceparking != null">
               nombre de places de parking au sein de l'équipement : {{installation.nbrplaceparking}}
             </sui-item-content>
-
           </sui-item>
-
-
         </sui-list>
 
       </sui-modal-content>
