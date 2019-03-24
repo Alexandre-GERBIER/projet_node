@@ -269,6 +269,7 @@ const populateActivite =  function() {
                     $Nom_de_la_commune: String(row.nom_de_la_commune),
                     $Numero_de_la_fiche_equipement: String(row.numero_de_la_fiche_equipement),
                     $Nombre_dEquipements_identiques: String(row.nombre_d_equipements_identiques),
+                    //on utilise une exprssion régulière pour supprimer les slash des noms d'activité car cela pose problème lors des requètes
                     $Activite_libelle: String(row.activite_libelle).replace(/[\u002f]/g, " , ") ,
                     $Activite_praticable: String(row.activite_praticable),
                     $Activite_pratiquee: String(row.activite_pratiquee),
